@@ -1,0 +1,720 @@
+/* ============================================================
+   TEMPLATE PRESTIGE — Direction artistique "encre & or"
+   Inspirée du style Sir Winston. Toutes les couleurs viennent
+   des variables du thème (--encre, --or, --creme...) définies
+   dans le fichier de config. Mobile-first.
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Lato:wght@400;700&display=swap");
+
+.prestige {
+  background: var(--encre);
+  color: var(--creme);
+  font-family: var(--policeTexte);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.prestige a {
+  color: inherit;
+}
+
+/* --- Animations (remplacent framer-motion) ------------------ */
+/* Apparition au défilement (composant Reveal) */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+/* Entrée du hero au chargement de la page */
+@keyframes pheroIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.phero__content--enter {
+  animation: pheroIn 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* Respecte les utilisateurs qui réduisent les animations */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .phero__content--enter {
+    transition: none;
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Petit intitulé doré en capitales (réutilisé partout) --- */
+.psurtitre {
+  font-family: var(--policeCaps);
+  color: var(--or);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+/* --- Filet + losange doré --- */
+.pdivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 22px 0;
+}
+.pdivider__line {
+  height: 1px;
+  width: 70px;
+  background: var(--or);
+  opacity: 0.6;
+}
+.pdivider__diamond {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--or);
+  transform: rotate(45deg);
+}
+
+/* --- Boutons --- */
+.pbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--policeTexte);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 2px;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+/* On préfixe par .prestige pour l'emporter sur ".prestige a" (spécificité). */
+.prestige .pbtn--gold {
+  background: var(--or);
+  color: var(--encre);
+}
+.prestige .pbtn--gold:hover {
+  opacity: 0.88;
+}
+.prestige .pbtn--outline {
+  border: 1px solid rgba(244, 237, 225, 0.4);
+  color: var(--creme);
+}
+.pbtn--outline:hover {
+  border-color: var(--or);
+  color: var(--or);
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.pnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  transition: background 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+.pnav--solid {
+  background: rgba(15, 18, 21, 0.95);
+  border-bottom: 1px solid rgba(202, 175, 99, 0.25);
+}
+.pnav__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.pnav__brand {
+  font-family: var(--policeTitres);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--creme);
+  text-decoration: none;
+}
+.pnav__links {
+  display: none;
+  align-items: center; /* centre verticalement liens texte et menu déroulant */
+  gap: 30px;
+}
+.pnav__links a {
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--creme);
+  transition: color 0.2s ease;
+}
+.pnav__links a:hover {
+  color: var(--or);
+}
+.pnav__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* --- Menu déroulant "La carte" (au survol) --- */
+.pdrop {
+  position: relative;
+}
+.pdrop__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pdrop__chevron {
+  font-size: 10px;
+  color: var(--or);
+  transition: transform 0.25s ease;
+}
+.pdrop:hover .pdrop__chevron {
+  transform: rotate(180deg);
+}
+.pdrop__menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 230px;
+  background: var(--charcoal);
+  border: 1px solid rgba(202, 175, 99, 0.3);
+  border-radius: 3px;
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+/* Le menu reste ouvert tant que le curseur est sur l'onglet OU le menu */
+.pdrop:hover .pdrop__menu,
+.pdrop:focus-within .pdrop__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.pdrop__menu a {
+  padding: 13px 22px;
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+  color: var(--creme);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(244, 237, 225, 0.08);
+  white-space: nowrap;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.pdrop__menu a:last-child {
+  border-bottom: 0;
+}
+.pdrop__menu a:hover {
+  color: var(--or);
+  background: rgba(202, 175, 99, 0.08);
+}
+.pnav__lang {
+  background: transparent;
+  border: 1px solid rgba(244, 237, 225, 0.35);
+  color: var(--creme);
+  font-family: var(--policeTexte);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  padding: 8px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.pnav__lang:hover {
+  border-color: var(--or);
+  color: var(--or);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.phero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 22px 60px;
+  background-color: var(--encre);
+  background-size: cover;
+  background-position: center;
+}
+.phero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 18, 21, 0.55),
+    rgba(15, 18, 21, 0.8)
+  );
+}
+.phero__content {
+  position: relative;
+  max-width: 640px;
+}
+.phero__label {
+  font-family: var(--policeCaps);
+  color: var(--or);
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  font-size: 14px;
+  margin: 0 0 22px;
+}
+.phero__title {
+  font-family: var(--policeTitres);
+  color: var(--creme);
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.05;
+  margin: 0;
+}
+.phero__subtitle {
+  font-family: var(--policeTitres);
+  font-style: italic;
+  color: rgba(244, 237, 225, 0.85);
+  font-size: 19px;
+  margin: 0 auto 30px;
+  max-width: 460px;
+}
+.phero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+/* ============================================================
+   STORYTELLING (sections claires alternées)
+   ============================================================ */
+.pstory {
+  background: var(--creme);
+  color: #2a2a2a;
+}
+.pstory__row {
+  display: grid;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pstory__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  min-height: 320px;
+}
+.pstory__text {
+  padding: 48px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pstory__title {
+  font-family: var(--policeTitres);
+  color: var(--encre);
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+.pstory__body {
+  margin: 0;
+  color: #4a4a4a;
+}
+
+/* ============================================================
+   BANDE D'APPEL (fond encre)
+   ============================================================ */
+.pcta {
+  background: var(--encre);
+  text-align: center;
+  padding: 72px 22px;
+}
+.pcta__title {
+  font-family: var(--policeTitres);
+  color: var(--creme);
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.pcta__text {
+  color: rgba(244, 237, 225, 0.75);
+  margin: 0 0 26px;
+}
+
+/* ============================================================
+   INFOS PRATIQUES
+   ============================================================ */
+.pinfos {
+  background: var(--charcoal);
+  padding: 64px 22px;
+}
+.pinfos__title {
+  font-family: var(--policeTitres);
+  color: var(--creme);
+  font-size: 30px;
+  text-align: center;
+  margin: 0 0 36px;
+}
+.pinfos__grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+}
+.pinfos__value {
+  margin: 0 0 20px;
+  color: rgba(244, 237, 225, 0.85);
+}
+.pinfos__value a:hover {
+  color: var(--or);
+}
+.pinfos__map iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  border-radius: 4px;
+  filter: grayscale(0.3);
+}
+
+/* ============================================================
+   PIED DE PAGE
+   ============================================================ */
+.pfooter {
+  background: var(--encre);
+  text-align: center;
+  padding: 44px 22px;
+  border-top: 1px solid rgba(202, 175, 99, 0.2);
+}
+.pfooter__brand {
+  font-family: var(--policeTitres);
+  color: var(--or);
+  font-size: 24px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 14px;
+}
+.pfooter__social {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.pfooter__social a {
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+  color: var(--creme);
+  text-decoration: none;
+}
+.pfooter__social a:hover {
+  color: var(--or);
+}
+.pfooter__legal {
+  font-size: 13px;
+  color: rgba(244, 237, 225, 0.5);
+  margin: 0;
+}
+
+/* ============================================================
+   PAGES INTÉRIEURES (Carte, Histoire, Galerie)
+   ============================================================ */
+.ppage {
+  padding-top: 92px; /* dégage la barre de navigation fixe */
+  padding-bottom: 48px;
+  min-height: 60vh;
+}
+.ppagehead {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px 22px 10px;
+}
+.ppagehead__title {
+  font-family: var(--policeTitres);
+  color: var(--creme);
+  font-size: 44px;
+  margin: 0 0 4px;
+}
+.ppagehead__text {
+  color: rgba(244, 237, 225, 0.75);
+  font-size: 18px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* Éléments partagés : prix en or + pointillés de liaison */
+.por {
+  color: var(--or);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.pdots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(202, 175, 99, 0.35);
+  transform: translateY(-4px);
+  margin: 0 6px;
+}
+
+/* --- Formules déjeuner --- */
+.pformules {
+  max-width: 620px;
+  margin: 24px auto 0;
+  background: var(--charcoal);
+  border: 1px solid rgba(202, 175, 99, 0.25);
+  border-radius: 6px;
+  padding: 28px 30px;
+}
+.pformules__title {
+  font-family: var(--policeTitres);
+  color: var(--creme);
+  font-size: 24px;
+  text-align: center;
+  margin: 0 0 4px;
+}
+.pformules__note {
+  text-align: center;
+  color: rgba(244, 237, 225, 0.6);
+  font-style: italic;
+  font-size: 14px;
+  margin: 0 0 18px;
+}
+.pformules__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pformules__list li {
+  display: flex;
+  align-items: baseline;
+  padding: 8px 0;
+  color: rgba(244, 237, 225, 0.9);
+}
+
+/* --- Onglets de menus --- */
+.pcarte__tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 36px 0 0;
+}
+.pcarte__tab {
+  background: transparent;
+  border: 1px solid rgba(244, 237, 225, 0.25);
+  color: var(--creme);
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.pcarte__tab:hover {
+  border-color: var(--or);
+  color: var(--or);
+}
+.pcarte__tab.is-active {
+  background: var(--or);
+  color: var(--encre);
+  border-color: var(--or);
+}
+.pcarte__note {
+  text-align: center;
+  color: rgba(244, 237, 225, 0.7);
+  font-style: italic;
+  margin: 16px 0 0;
+}
+
+/* --- Catégories & plats --- */
+.pcarte__menu {
+  max-width: 720px;
+  margin: 26px auto 0;
+  padding: 0 22px;
+}
+.pcat {
+  margin-bottom: 38px;
+  /* Quand on défile jusqu'à une catégorie via une ancre, on laisse
+     de la place pour la barre de navigation fixe. */
+  scroll-margin-top: 104px;
+}
+.pcat__title {
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--or);
+  font-size: 18px;
+  border-bottom: 1px solid rgba(202, 175, 99, 0.3);
+  padding-bottom: 10px;
+  margin: 0 0 16px;
+}
+.pcat__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pdish {
+  margin-bottom: 16px;
+}
+.pdish__head {
+  display: flex;
+  align-items: baseline;
+}
+.pdish__name {
+  font-weight: 700;
+  color: var(--creme);
+}
+.pdish__desc {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: rgba(244, 237, 225, 0.55);
+}
+
+/* --- Citation du chef --- */
+.pchef {
+  max-width: 640px;
+  margin: 24px auto 0;
+  text-align: center;
+  padding: 10px 22px;
+}
+.pchef__quote {
+  font-family: var(--policeTitres);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--creme);
+  line-height: 1.5;
+  margin: 10px 0 18px;
+}
+.pchef__name {
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--or);
+  margin: 0;
+}
+.pchef__role {
+  font-size: 13px;
+  color: rgba(244, 237, 225, 0.6);
+  margin: 2px 0 0;
+}
+
+/* --- Galerie --- */
+.pgalerie__grid {
+  max-width: 1100px;
+  margin: 26px auto 0;
+  padding: 0 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.pgalerie__item {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  line-height: 0;
+}
+.pgalerie__item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.pgalerie__item:hover img {
+  transform: scale(1.05);
+}
+
+/* --- Lightbox (agrandissement photo) --- */
+.plightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10, 11, 13, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+.plightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  border-radius: 4px;
+}
+.plightbox__close {
+  position: absolute;
+  top: 18px;
+  right: 26px;
+  background: none;
+  border: 0;
+  color: var(--creme);
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ============================================================
+   ÉCRANS LARGES
+   ============================================================ */
+@media (min-width: 768px) {
+  .pnav__links {
+    display: flex;
+  }
+  .ppagehead__title {
+    font-size: 56px;
+  }
+  .pgalerie__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .phero__title {
+    font-size: 80px;
+  }
+  .phero__subtitle {
+    font-size: 21px;
+  }
+  .phero__actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .pstory__row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pstory__row--reverse .pstory__media {
+    order: 2;
+  }
+  .pstory__text {
+    padding: 64px 56px;
+  }
+  .pinfos__grid {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+  }
+}

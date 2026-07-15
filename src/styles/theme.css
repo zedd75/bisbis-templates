@@ -1,0 +1,321 @@
+/* ============================================================
+   FEUILLE DE STYLE DES TEMPLATES
+   Tout est piloté par les variables --primaire, --fond, etc.
+   définies depuis client.config.js. On ne code JAMAIS une
+   couleur en dur ici : on utilise var(--primaire), etc.
+   Conçu "mobile-first" : le style de base = mobile, puis on
+   ajoute les écrans larges avec @media (min-width: 768px).
+   ============================================================ */
+
+.site {
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--policeTexte);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* --- Titres ------------------------------------------------ */
+h1,
+h2,
+h3 {
+  font-family: var(--policeTitres);
+  color: var(--primaire);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* --- Conteneur de section --------------------------------- */
+.section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 20px;
+}
+
+.section__title {
+  font-size: 30px;
+  margin-bottom: 24px;
+}
+
+.section__title--center {
+  text-align: center;
+}
+
+/* --- Boutons ---------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn--primary {
+  background: var(--primaire);
+  color: #fff;
+}
+.btn--outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+.btn--phone {
+  background: var(--secondaire);
+  color: #1a1a1a;
+  padding: 9px 16px;
+}
+
+/* ============================================================
+   EN-TÊTE (sticky)
+   ============================================================ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--fond);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.header__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__brand {
+  font-family: var(--policeTitres);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primaire);
+  text-decoration: none;
+}
+.header__logo {
+  height: 40px;
+  width: auto;
+}
+
+/* ============================================================
+   HERO (image d'accueil plein écran)
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.6)
+  );
+}
+.hero__content {
+  position: relative;
+  color: #fff;
+  max-width: 700px;
+}
+.hero__title {
+  color: #fff;
+  font-size: 44px;
+  margin-bottom: 12px;
+}
+.hero__subtitle {
+  font-size: 19px;
+  margin-bottom: 28px;
+  opacity: 0.95;
+}
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ============================================================
+   À PROPOS
+   ============================================================ */
+.about {
+  display: grid;
+  gap: 28px;
+}
+.about__image img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+/* ============================================================
+   MENU / La carte
+   ============================================================ */
+.menu__grid {
+  display: grid;
+  gap: 36px;
+}
+.menu__category-title {
+  font-size: 22px;
+  color: var(--primaire);
+  border-bottom: 2px solid var(--secondaire);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+.menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menu__item {
+  margin-bottom: 16px;
+}
+.menu__item-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.menu__item-name {
+  font-weight: 600;
+}
+.menu__item-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+}
+.menu__item-price {
+  font-weight: 700;
+  color: var(--primaire);
+  white-space: nowrap;
+}
+.menu__item-desc {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   INFOS PRATIQUES
+   ============================================================ */
+.infos__grid {
+  display: grid;
+  gap: 28px;
+}
+.infos__subtitle {
+  font-size: 18px;
+  margin: 20px 0 10px;
+}
+.infos__hours {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.infos__hours li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.infos a {
+  color: var(--primaire);
+}
+.infos__map iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 12px;
+}
+
+/* ============================================================
+   PIED DE PAGE
+   ============================================================ */
+.footer {
+  background: var(--primaire);
+  color: #fff;
+  text-align: center;
+  padding: 32px 20px 90px; /* padding bas = place pour la barre mobile */
+}
+.footer__brand {
+  font-family: var(--policeTitres);
+  font-size: 20px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 12px;
+}
+.footer__social {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.footer__social a {
+  color: var(--secondaire);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer__legal {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   BARRE D'APPEL FIXE (mobile uniquement)
+   ============================================================ */
+.mobile-call-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: var(--secondaire);
+  color: #1a1a1a;
+  text-align: center;
+  padding: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ============================================================
+   ÉCRANS LARGES (tablette / ordinateur)
+   ============================================================ */
+@media (min-width: 768px) {
+  .hero__title {
+    font-size: 60px;
+  }
+  .hero__actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .btn__label {
+    display: inline;
+  }
+  .about {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+  }
+  .menu__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .infos__grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  /* La barre d'appel ne sert que sur mobile : on la cache. */
+  .mobile-call-bar {
+    display: none;
+  }
+  .footer {
+    padding-bottom: 32px;
+  }
+}
