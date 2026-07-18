@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Showroom — 3 gammes de sites restaurants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      background: #0F1215; color: #F4EDE1;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 40px 20px;
+    }
+    .label { color: #CAAF63; text-transform: uppercase; letter-spacing: .3em; font-size: 13px; margin-bottom: 14px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 40px; text-align: center; margin-bottom: 8px; }
+    .sub { opacity: .7; margin-bottom: 40px; text-align: center; }
+    .grid { display: grid; gap: 18px; grid-template-columns: 1fr; width: 100%; max-width: 960px; }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    a.card {
+      display: block; text-decoration: none; color: inherit;
+      border: 1px solid rgba(202,175,99,.3); border-radius: 10px;
+      padding: 28px 24px; transition: transform .2s ease, border-color .2s ease;
+      background: #16191d;
+    }
+    a.card:hover { transform: translateY(-4px); border-color: #CAAF63; }
+    .tier { font-size: 12px; text-transform: uppercase; letter-spacing: .18em; color: #CAAF63; margin-bottom: 10px; }
+    .nom { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 6px; }
+    .desc { font-size: 14px; opacity: .7; line-height: 1.6; }
+    .cta { margin-top: 16px; font-size: 13px; font-weight: 600; color: #CAAF63; }
+    footer { margin-top: 44px; font-size: 12px; opacity: .45; }
+  </style>
+</head>
+<body>
+  <p class="label">Showroom</p>
+  <h1>Trois gammes, une seule base</h1>
+  <p class="sub">Chaque démo est un vrai site — cliquez pour naviguer dedans.</p>
+
+  <div class="grid">
+    <a class="card" href="/?client=bistrot">
+      <p class="tier">Offre Essentiel</p>
+      <p class="nom">Le Petit Marais</p>
+      <p class="desc">One-page ultra-simple : hero, carte, horaires, carte Google, bouton d'appel. L'essentiel, vite et bien.</p>
+      <p class="cta">Voir la démo →</p>
+    </a>
+    <a class="card" href="/?client=palma">
+      <p class="tier">Offre Signature</p>
+      <p class="nom">Casa Palma</p>
+      <p class="desc">One-page enrichi : galerie photos, menus complets à onglets, avis clients, animations au défilement.</p>
+      <p class="cta">Voir la démo →</p>
+    </a>
+    <a class="card" href="/?client=doric">
+      <p class="tier">Offre Prestige</p>
+      <p class="nom">Le Doric</p>
+      <p class="desc">Multi-pages haut de gamme : direction artistique sur mesure, bilingue FR/EN, réservation, galerie, histoire.</p>
+      <p class="cta">Voir la démo →</p>
+    </a>
+  </div>
+
+  <footer>Page interne de démonstration — non référencée.</footer>
+</body>
+</html>

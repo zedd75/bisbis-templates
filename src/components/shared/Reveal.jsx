@@ -1,6 +1,7 @@
+// COMPOSANT PARTAGÉ (Signature + Prestige)
 // Fait apparaître son contenu en fondu + léger glissement quand il
 // entre à l'écran. Zéro dépendance : on utilise IntersectionObserver
-// (natif au navigateur) + une transition CSS.
+// (natif au navigateur) + une transition CSS (voir theme.css).
 import { useEffect, useRef, useState } from "react";
 
 export default function Reveal({ children, delay = 0 }) {

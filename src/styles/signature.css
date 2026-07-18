@@ -1,0 +1,241 @@
+/* ============================================================
+   TEMPLATE SIGNATURE — styles additionnels
+   Chargé EN PLUS de theme.css (qui reste la base commune avec
+   l'Essentiel). Tout est piloté par les variables du thème
+   (--primaire, --secondaire, --fond, --texte).
+   ============================================================ */
+
+/* --- Navigation par ancres dans l'en-tête ------------------- */
+.sheader__nav {
+  display: none;
+  gap: 22px;
+}
+.sheader__nav a {
+  text-decoration: none;
+  color: var(--texte);
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.2s ease;
+}
+.sheader__nav a:hover {
+  color: var(--primaire);
+}
+
+/* --- Burger + panneau mobile -------------------------------- */
+.sheader__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sheader__burger {
+  background: transparent;
+  border: 1.5px solid var(--primaire);
+  color: var(--primaire);
+  font-size: 18px;
+  line-height: 1;
+  padding: 8px 11px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.sheader__mobile {
+  display: flex;
+  flex-direction: column;
+  background: var(--fond);
+  border-bottom: 2px solid var(--secondaire);
+}
+.sheader__mobile a {
+  text-decoration: none;
+  color: var(--texte);
+  font-weight: 600;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.sheader__mobile a:last-child {
+  border-bottom: 0;
+}
+
+/* --- Bloc formules ------------------------------------------ */
+.sformules {
+  max-width: 620px;
+  margin: 0 auto 8px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-left: 4px solid var(--secondaire);
+  border-radius: 10px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+.sformules__title {
+  font-family: var(--policeTitres);
+  color: var(--primaire);
+  font-size: 22px;
+  margin: 0 0 2px;
+  text-align: center;
+}
+.sformules__note {
+  text-align: center;
+  font-size: 13px;
+  font-style: italic;
+  opacity: 0.65;
+  margin: 0 0 14px;
+}
+.sformules__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sformules__list li {
+  display: flex;
+  align-items: baseline;
+  padding: 7px 0;
+}
+.sdots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+  margin: 0 6px;
+}
+.sprix {
+  font-weight: 700;
+  color: var(--primaire);
+  white-space: nowrap;
+}
+
+/* --- Onglets du menu ---------------------------------------- */
+.stabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0 6px;
+}
+.stab {
+  background: transparent;
+  border: 1.5px solid var(--primaire);
+  color: var(--primaire);
+  font-family: var(--policeTexte);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.stab:hover {
+  transform: translateY(-2px);
+}
+.stab.is-active {
+  background: var(--primaire);
+  color: #fff;
+}
+.smenu__note {
+  text-align: center;
+  font-style: italic;
+  font-size: 14px;
+  opacity: 0.7;
+  margin: 10px 0 18px;
+}
+
+/* --- Galerie photos ----------------------------------------- */
+.sgalerie__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.sgalerie__item {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+  line-height: 0;
+}
+.sgalerie__item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.sgalerie__item:hover img {
+  transform: scale(1.05);
+}
+
+/* --- Lightbox ----------------------------------------------- */
+.slightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(15, 12, 10, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+.slightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  border-radius: 8px;
+}
+.slightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* --- Avis clients ------------------------------------------- */
+.savis__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.savis__card {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+.savis__stars {
+  color: var(--secondaire);
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin: 0 0 10px;
+}
+.savis__stars-empty {
+  opacity: 0.25;
+}
+.savis__text {
+  margin: 0 0 12px;
+  font-style: italic;
+}
+.savis__name {
+  margin: 0;
+  font-weight: 700;
+  color: var(--primaire);
+  font-size: 14px;
+}
+
+/* --- Écrans larges ------------------------------------------ */
+@media (min-width: 768px) {
+  .sheader__nav {
+    display: flex;
+  }
+  .sheader__burger,
+  .sheader__mobile {
+    display: none; /* le burger ne sert que sur mobile */
+  }
+  .sgalerie__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .savis__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

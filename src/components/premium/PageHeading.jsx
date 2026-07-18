@@ -1,6 +1,6 @@
 // En-tête réutilisé en haut des pages : petit label doré, grand titre,
 // filet + losange, et un texte d'introduction optionnel.
-import Reveal from "./Reveal.jsx";
+import Reveal from "../shared/Reveal.jsx";
 
 export default function PageHeading({ label, titre, texte }) {
   return (

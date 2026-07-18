@@ -15,6 +15,27 @@
   line-height: 1.6;
 }
 
+/* --- Animation partagée : apparition au défilement ----------
+   Utilisée par le composant shared/Reveal.jsx (Signature +
+   Prestige). L'Essentiel n'a volontairement aucune animation. */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* --- Titres ------------------------------------------------ */
 h1,
 h2,

@@ -3,6 +3,7 @@
 //   ou après défilement
 // - "La carte" est un menu déroulant (au survol) qui liste les
 //   sections de la carte ; un clic amène directement à la section
+// - sur mobile : bouton burger qui ouvre un panneau de liens
 // - bouton Réserver (externe) + bascule de langue FR / EN
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -10,6 +11,7 @@ import slugify from "../../utils/slugify.js";
 
 export default function PremiumNav({ config, t, lang, setLang }) {
   const [scrolled, setScrolled] = useState(false);
+  const [burgerOuvert, setBurgerOuvert] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -18,8 +20,14 @@ export default function PremiumNav({ config, t, lang, setLang }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Opaque si on a défilé, OU si on n'est pas sur l'accueil (pas de hero).
-  const solide = scrolled || pathname !== "/";
+  // Referme le panneau mobile à chaque changement de page.
+  useEffect(() => {
+    setBurgerOuvert(false);
+  }, [pathname]);
+
+  // Opaque si on a défilé, si on n'est pas sur l'accueil, ou si le
+  // panneau mobile est ouvert.
+  const solide = scrolled || pathname !== "/" || burgerOuvert;
 
   // Entrées du menu déroulant :
   //  - les catégories du 1er menu (À partager, Currys & grillades...)
@@ -79,8 +87,29 @@ export default function PremiumNav({ config, t, lang, setLang }) {
           >
             {t.nav.reserver}
           </a>
+          {/* --- Burger (mobile uniquement, voir prestige.css) --- */}
+          <button
+            className="pnav__burger"
+            onClick={() => setBurgerOuvert(!burgerOuvert)}
+            aria-expanded={burgerOuvert}
+            aria-label="Ouvrir le menu"
+          >
+            {burgerOuvert ? "✕" : "☰"}
+          </button>
         </div>
       </div>
+
+      {/* --- Panneau mobile --- */}
+      {burgerOuvert && (
+        <nav className="pnav__mobile">
+          <Link to="/histoire">{t.nav.histoire}</Link>
+          <Link to="/carte">{t.nav.carte}</Link>
+          <Link to="/galerie">{t.nav.galerie}</Link>
+          <a href={config.reservationUrl} target="_blank" rel="noreferrer">
+            {t.nav.reserver}
+          </a>
+        </nav>
+      )}
     </header>
   );
 }

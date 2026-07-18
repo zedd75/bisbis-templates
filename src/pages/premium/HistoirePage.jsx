@@ -2,7 +2,7 @@
 // citation du chef.
 import PageHeading from "../../components/premium/PageHeading.jsx";
 import PremiumStory from "../../components/premium/PremiumStory.jsx";
-import Reveal from "../../components/premium/Reveal.jsx";
+import Reveal from "../../components/shared/Reveal.jsx";
 
 export default function HistoirePage({ config, t }) {
   const h = t.histoire;

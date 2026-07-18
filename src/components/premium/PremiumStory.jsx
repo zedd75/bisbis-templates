@@ -1,7 +1,7 @@
 // Sections "storytelling" alternées (texte / image), qui apparaissent
 // en fondu au défilement. Piloté par des props : liste de blocs
 // { titre, texte, surtitre? } + liste d'images.
-import Reveal from "./Reveal.jsx";
+import Reveal from "../shared/Reveal.jsx";
 
 export default function PremiumStory({ blocs, images }) {
   return (

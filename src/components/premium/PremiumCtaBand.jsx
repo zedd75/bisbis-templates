@@ -1,5 +1,5 @@
 // Bande d'appel à l'action sur fond encre : invite à réserver.
-import Reveal from "./Reveal.jsx";
+import Reveal from "../shared/Reveal.jsx";
 
 export default function PremiumCtaBand({ config, t }) {
   return (

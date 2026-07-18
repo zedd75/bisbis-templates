@@ -1,5 +1,5 @@
 // Infos pratiques Premium : horaires, adresse, métro + carte Google.
-import Reveal from "./Reveal.jsx";
+import Reveal from "../shared/Reveal.jsx";
 
 export default function PremiumInfo({ config, t }) {
   const { infos } = config;

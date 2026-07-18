@@ -7,7 +7,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PageHeading from "../../components/premium/PageHeading.jsx";
-import Reveal from "../../components/premium/Reveal.jsx";
+import Reveal from "../../components/shared/Reveal.jsx";
 import slugify from "../../utils/slugify.js";
 
 export default function CartePage({ t }) {

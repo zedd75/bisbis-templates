@@ -4,7 +4,8 @@
    des variables du thème (--encre, --or, --creme...) définies
    dans le fichier de config. Mobile-first.
    ============================================================ */
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Lato:wght@400;700&display=swap");
+/* Les polices (Cormorant Garamond, Lato...) sont chargées une seule
+   fois dans index.html — jamais via @import (bloquant au rendu). */
 
 .prestige {
   background: var(--encre);
@@ -18,18 +19,8 @@
   color: inherit;
 }
 
-/* --- Animations (remplacent framer-motion) ------------------ */
-/* Apparition au défilement (composant Reveal) */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.reveal--visible {
-  opacity: 1;
-  transform: none;
-}
+/* --- Animations ---------------------------------------------
+   (.reveal est défini dans theme.css, partagé avec Signature)  */
 /* Entrée du hero au chargement de la page */
 @keyframes pheroIn {
   from {
@@ -46,9 +37,7 @@
 }
 /* Respecte les utilisateurs qui réduisent les animations */
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
   .phero__content--enter {
-    transition: none;
     animation: none;
     opacity: 1;
     transform: none;
@@ -171,6 +160,39 @@
   display: flex;
   align-items: center;
   gap: 14px;
+}
+
+/* --- Burger + panneau mobile -------------------------------- */
+.pnav__burger {
+  background: transparent;
+  border: 1px solid rgba(244, 237, 225, 0.35);
+  color: var(--creme);
+  font-size: 20px;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.pnav__mobile {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 18, 21, 0.98);
+  border-bottom: 1px solid rgba(202, 175, 99, 0.3);
+  padding: 8px 0 14px;
+}
+.pnav__mobile a {
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 15px;
+  color: var(--creme);
+  text-decoration: none;
+  padding: 14px 26px;
+  border-bottom: 1px solid rgba(244, 237, 225, 0.08);
+}
+.pnav__mobile a:last-child {
+  border-bottom: 0;
+  color: var(--or);
 }
 
 /* --- Menu déroulant "La carte" (au survol) --- */
@@ -687,6 +709,10 @@
 @media (min-width: 768px) {
   .pnav__links {
     display: flex;
+  }
+  .pnav__burger,
+  .pnav__mobile {
+    display: none; /* le burger ne sert que sur mobile */
   }
   .ppagehead__title {
     font-size: 56px;

@@ -1,5 +1,5 @@
 // ============================================================
-//  FICHIER DE CONFIGURATION CLIENT
+//  FICHIER DE CONFIGURATION CLIENT — démo ESSENTIEL
 // ------------------------------------------------------------
 //  Pour créer un NOUVEAU site :
 //    1. Dupliquez ce fichier (ex: chez-fatou.config.js)
@@ -7,6 +7,7 @@
 //    3. Importez-le dans App.jsx
 //  => Vous ne touchez JAMAIS au reste du code.
 // ============================================================
+import { nourriture } from "./data/carte-auteuil.data.js";
 
 const config = {
   // --- Quel modèle de site ? -------------------------------
@@ -50,33 +51,19 @@ const config = {
   },
 
   // --- MENU / La carte -------------------------------------
+  //  Les plats viennent du fichier partagé data/carte-auteuil.data.js
+  //  (le même que la démo Premium). Pour un vrai client : remplacez
+  //  par ses propres catégories/plats.
   menu: {
     titre: "La carte",
     categories: [
-      {
-        nom: "Entrées",
-        plats: [
-          { nom: "Œuf parfait, crème de champignons", prix: "12€" },
-          { nom: "Burrata, tomates anciennes & basilic", prix: "14€" },
-          { nom: "Terrine maison, cornichons", prix: "11€" },
-        ],
-      },
-      {
-        nom: "Plats",
-        plats: [
-          { nom: "Entrecôte, frites maison, sauce au poivre", prix: "26€" },
-          { nom: "Risotto crémeux aux champignons", prix: "19€" },
-          { nom: "Poisson du jour, légumes de saison", prix: "23€" },
-        ],
-      },
-      {
-        nom: "Desserts",
-        plats: [
-          { nom: "Tarte fine aux pommes, glace vanille", prix: "9€" },
-          { nom: "Fondant au chocolat", prix: "9€" },
-          { nom: "Café gourmand", prix: "10€" },
-        ],
-      },
+      { nom: "Mezzés — à partager", plats: nourriture.mezzes },
+      { nom: "Pâtes & risotto", plats: nourriture.patesRisotto },
+      { nom: "Pizzas", plats: nourriture.pizzas },
+      { nom: "Crus", plats: nourriture.crus },
+      { nom: "Salades", plats: nourriture.salades },
+      { nom: "Grillades & plancha", plats: nourriture.grillades },
+      { nom: "Sucrés & glacés", plats: nourriture.desserts },
     ],
   },
 
