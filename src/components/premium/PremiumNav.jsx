@@ -12,6 +12,7 @@ import slugify from "../../utils/slugify.js";
 export default function PremiumNav({ config, t, lang, setLang }) {
   const [scrolled, setScrolled] = useState(false);
   const [burgerOuvert, setBurgerOuvert] = useState(false);
+  const [carteOuverte, setCarteOuverte] = useState(false);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -51,9 +52,26 @@ export default function PremiumNav({ config, t, lang, setLang }) {
         <nav className="pnav__links">
           <Link to="/histoire">{t.nav.histoire}</Link>
 
-          {/* --- Menu déroulant "La carte" --- */}
-          <div className="pdrop">
-            <Link to="/carte" className="pdrop__trigger">
+          {/* --- Menu déroulant "La carte" ---
+              Ouvert au survol (souris) OU au focus clavier ; se
+              referme dès qu'on clique un élément. */}
+          <div
+            className={`pdrop ${carteOuverte ? "pdrop--open" : ""}`}
+            onMouseEnter={() => setCarteOuverte(true)}
+            onMouseLeave={() => setCarteOuverte(false)}
+            onFocus={() => setCarteOuverte(true)}
+            onBlur={(e) => {
+              // ne referme que si le focus quitte tout le menu
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                setCarteOuverte(false);
+              }
+            }}
+          >
+            <Link
+              to="/carte"
+              className="pdrop__trigger"
+              onClick={() => setCarteOuverte(false)}
+            >
               {t.nav.carte}
               <span className="pdrop__chevron" aria-hidden="true">
                 ▾
@@ -61,7 +79,11 @@ export default function PremiumNav({ config, t, lang, setLang }) {
             </Link>
             <div className="pdrop__menu">
               {entreesCarte.map((entree) => (
-                <Link key={entree.ancre} to={`/carte#${entree.ancre}`}>
+                <Link
+                  key={entree.ancre}
+                  to={`/carte#${entree.ancre}`}
+                  onClick={() => setCarteOuverte(false)}
+                >
                   {entree.nom}
                 </Link>
               ))}

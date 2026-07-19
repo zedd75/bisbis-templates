@@ -20,6 +20,20 @@
     <!-- Le vrai titre et les metas sont posés par le composant Seo
          à partir de la config du client. -->
     <title>Site vitrine</title>
+
+    <!-- Aucun site choisi (?client=…) et aucun choix mémorisé dans
+         l'onglet = première visite sur l'adresse nue : on envoie vers
+         le showroom qui liste les 3 sites. S'exécute AVANT React,
+         donc sans clignotement. Ne casse pas les liens ?client=… ni
+         la navigation interne (le choix mémorisé fait foi). -->
+    <script>
+      (function () {
+        var client = new URLSearchParams(location.search).get("client");
+        if (!client && !sessionStorage.getItem("client")) {
+          location.replace("/demos.html");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

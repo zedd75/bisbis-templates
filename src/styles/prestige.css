@@ -209,7 +209,7 @@
   color: var(--or);
   transition: transform 0.25s ease;
 }
-.pdrop:hover .pdrop__chevron {
+.pdrop--open .pdrop__chevron {
   transform: rotate(180deg);
 }
 .pdrop__menu {
@@ -228,9 +228,9 @@
   visibility: hidden;
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
 }
-/* Le menu reste ouvert tant que le curseur est sur l'onglet OU le menu */
-.pdrop:hover .pdrop__menu,
-.pdrop:focus-within .pdrop__menu {
+/* Ouverture pilotée par l'état React (.pdrop--open) : le clic sur un
+   élément referme immédiatement le menu. */
+.pdrop--open .pdrop__menu {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
