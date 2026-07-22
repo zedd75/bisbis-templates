@@ -6,6 +6,8 @@ import Seo from "./components/shared/Seo.jsx";
 import useMenuSheet from "./hooks/useMenuSheet.js";
 import useMenuSupabase from "./hooks/useMenuSupabase.js";
 import { appliquerMenu } from "./utils/menuSheet.js";
+import useGalerieSupabase from "./hooks/useGalerieSupabase.js";
+import { appliquerGalerie } from "./utils/galerie.js";
 import bistrotConfig from "./config/client.config.js";
 import palmaConfig from "./config/casa-palma.config.js";
 import doricConfig from "./config/le-doric.config.js";
@@ -46,8 +48,10 @@ export default function App() {
   //   3) sinon le menu statique de la config
   const { onglets: ongletsSupabase } = useMenuSupabase(config.restaurantId);
   const { onglets: ongletsSheet } = useMenuSheet(config.menuSheet);
+  const { sections: galerieSections } = useGalerieSupabase(config.restaurantId);
   const onglets = ongletsSupabase || ongletsSheet;
-  const configFinal = onglets ? appliquerMenu(config, onglets) : config;
+  const configAvecMenu = onglets ? appliquerMenu(config, onglets) : config;
+  const configFinal = appliquerGalerie(configAvecMenu, galerieSections);
 
   const Template = TEMPLATES[configFinal.template] || EssentielTemplate;
 
