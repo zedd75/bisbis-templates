@@ -3,6 +3,9 @@
 // 2. Choisit le bon template selon config.template
 // 3. Transforme chaque couleur/police du thème en variable CSS
 import Seo from "./components/shared/Seo.jsx";
+import useMenuSheet from "./hooks/useMenuSheet.js";
+import useMenuSupabase from "./hooks/useMenuSupabase.js";
+import { appliquerMenu } from "./utils/menuSheet.js";
 import bistrotConfig from "./config/client.config.js";
 import palmaConfig from "./config/casa-palma.config.js";
 import doricConfig from "./config/le-doric.config.js";
@@ -37,19 +40,28 @@ const TEMPLATES = {
 };
 
 export default function App() {
-  const Template = TEMPLATES[config.template] || EssentielTemplate;
+  // Menu piloté à distance. Priorité :
+  //   1) Supabase (via config.restaurantId) — mis à jour par CometStudio
+  //   2) sinon un CSV (config.menuSheet)
+  //   3) sinon le menu statique de la config
+  const { onglets: ongletsSupabase } = useMenuSupabase(config.restaurantId);
+  const { onglets: ongletsSheet } = useMenuSheet(config.menuSheet);
+  const onglets = ongletsSupabase || ongletsSheet;
+  const configFinal = onglets ? appliquerMenu(config, onglets) : config;
+
+  const Template = TEMPLATES[configFinal.template] || EssentielTemplate;
 
   // Chaque clé du thème devient une variable CSS.
   // Ex : { or: "#CAAF63" }  ->  --or: #CAAF63
   const themeVars = {};
-  for (const [cle, valeur] of Object.entries(config.theme)) {
+  for (const [cle, valeur] of Object.entries(configFinal.theme)) {
     themeVars[`--${cle}`] = valeur;
   }
 
   return (
     <div className="site" style={themeVars}>
-      <Seo config={config} />
-      <Template config={config} />
+      <Seo config={configFinal} />
+      <Template config={configFinal} />
     </div>
   );
 }

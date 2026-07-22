@@ -18,6 +18,9 @@ const config = {
   template: "prestige",
   nom: "Le Doric",
 
+  // Menu piloté par CometStudio (via Supabase), pour ce restaurant.
+  restaurantId: "le-doric",
+
   theme: {
     encre: "#0F1215",
     charcoal: "#1E2024",
