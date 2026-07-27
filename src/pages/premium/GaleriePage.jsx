@@ -1,5 +1,5 @@
 // PAGE GALERIE : sections (titre + grille de photos) ou repli plat.
-// Données : config.images.galerieSections (Supabase/CometStudio) = liste de
+// Données : config.galerieSections (Supabase/CometStudio) = liste de
 // { id, nom, photos:[{url, texte, position}] }. Repli : config.images.galerie
 // (liste d'URL statiques). Chaque photo garde son texte positionné + lightbox.
 import { useState } from "react";
@@ -7,7 +7,7 @@ import PageHeading from "../../components/premium/PageHeading.jsx";
 
 export default function GaleriePage({ config, t }) {
   const g = t.galerie;
-  const sections = config.images.galerieSections || null;
+  const sections = config.galerieSections || null;
   const flat = (config.images.galerie || []).map((it) =>
     typeof it === "string" ? { url: it, texte: "", position: null } : it
   );
