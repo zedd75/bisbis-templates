@@ -46,7 +46,11 @@ export default function PremiumNav({ config, t, lang, setLang }) {
     <header className={`pnav ${solide ? "pnav--solid" : ""}`}>
       <div className="pnav__inner">
         <Link to="/" className="pnav__brand">
-          {config.nom}
+          {config.logo ? (
+            <img src={config.logo} alt={config.nom} className="pnav__logo" />
+          ) : (
+            config.nom
+          )}
         </Link>
 
         <nav className="pnav__links">

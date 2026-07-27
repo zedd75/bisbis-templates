@@ -7,11 +7,11 @@ import { useEffect, useState } from "react";
 import { SUPABASE_URL, SUPABASE_KEY } from "../lib/supabase.js";
 
 export default function useGalerieSupabase(restaurantId) {
-  const [sections, setSections] = useState(null);
+  const [donnees, setDonnees] = useState({ sections: null, images: null });
 
   useEffect(() => {
     if (!restaurantId) {
-      setSections(null);
+      setDonnees({ sections: null, images: null });
       return;
     }
     let annule = false;
@@ -24,7 +24,7 @@ export default function useGalerieSupabase(restaurantId) {
 
     Promise.all([
       q(`/galerie?restaurant_id=eq.${rid}&select=url,legende,position,section_id,ordre&order=ordre`),
-      q(`/restaurants?id=eq.${rid}&select=galerie_sections`),
+      q(`/restaurants?id=eq.${rid}&select=galerie_sections,images`),
     ])
       .then(([photos, restos]) => {
         if (annule) return;
@@ -43,12 +43,15 @@ export default function useGalerieSupabase(restaurantId) {
               })),
           }))
           .filter((s) => s.photos.length > 0);
-        setSections(groupes.length ? groupes : null);
+        setDonnees({
+          sections: groupes.length ? groupes : null,
+          images: (restos[0] && restos[0].images) || null,
+        });
       })
       .catch((e) => {
         if (!annule) {
           console.warn("[galerieSupabase] lecture impossible :", e.message);
-          setSections(null);
+          setDonnees({ sections: null, images: null });
         }
       });
 
@@ -57,5 +60,5 @@ export default function useGalerieSupabase(restaurantId) {
     };
   }, [restaurantId]);
 
-  return { sections };
+  return donnees;
 }

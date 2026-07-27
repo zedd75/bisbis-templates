@@ -132,6 +132,12 @@
   justify-content: space-between;
   gap: 16px;
 }
+/* Logo optionnel dans la navigation (sinon le nom s'affiche en texte) */
+.pnav__logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
 .pnav__brand {
   font-family: var(--policeTitres);
   font-size: 24px;
