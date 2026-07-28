@@ -58,7 +58,9 @@
 .sformules {
   max-width: 620px;
   margin: 0 auto 8px;
-  background: #fff;
+  /* Surface pilotée par le thème : en mode sombre, un blanc figé rendrait le
+     texte (devenu clair) illisible. */
+  background: var(--carte, #fff);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-left: 4px solid var(--secondaire);
   border-radius: 10px;
@@ -126,7 +128,7 @@
 }
 .stab.is-active {
   background: var(--primaire);
-  color: #fff;
+  color: var(--surPrimaire, #fff);
 }
 .smenu__note {
   text-align: center;
@@ -242,7 +244,7 @@
   gap: 16px;
 }
 .savis__card {
-  background: #fff;
+  background: var(--carte, #fff);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   padding: 22px 24px;
@@ -250,7 +252,9 @@
   height: 100%;
 }
 .savis__stars {
-  color: var(--secondaire);
+  /* L'ocre d'accent est trop clair sur fond ivoire (contraste 2.0) : les
+     étoiles ont leur propre teinte, définie par thème. */
+  color: var(--note, var(--secondaire));
   font-size: 18px;
   letter-spacing: 2px;
   margin: 0 0 10px;

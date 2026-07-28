@@ -24,8 +24,11 @@ const config = {
 
   // --- Thème (terracotta / ivoire) ---------------------------
   theme: {
-    primaire: "#9A3B26",    // terracotta
-    secondaire: "#E0A458",  // ocre doré
+    primaire: "#4E7A22",    // vert citron profond (basilic) — contraste 4.7 sur l'ivoire
+    surPrimaire: "#ffffff", // texte posé SUR la couleur primaire (boutons, pied de page)
+    secondaire: "#E0A458",  // ocre doré (fonds de boutons clairs)
+    note: "#8C6320",        // étoiles d'avis : ocre assombri, lisible sur l'ivoire
+    carte: "#ffffff",       // surface des blocs (formules, avis)
     fond: "#FAF6EF",        // ivoire
     texte: "#26221E",
     policeTitres: "'Playfair Display', serif",
@@ -36,8 +39,11 @@ const config = {
   // la fonctionnalité "Bascule clair/sombre" est activée).
   themeDefaut: "clair",
   themeAlternatif: {
-    primaire: "#C85A3C",    // terracotta éclairci
+    primaire: "#8FB33B",    // vert citron vif — contraste 7.6 sur le fond sombre
+    surPrimaire: "#1a1a1a", // un vert vif ne supporte pas le texte blanc : texte foncé
     secondaire: "#E8B872",  // ocre éclairci
+    note: "#E0A458",        // étoiles : l'ocre d'origine passe très bien sur fond sombre
+    carte: "#211C17",       // surface des blocs, légèrement plus claire que le fond
     fond: "#17130F",
     texte: "#F5EFE6",
     policeTitres: "'Playfair Display', serif",
