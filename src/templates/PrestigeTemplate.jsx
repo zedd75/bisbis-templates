@@ -13,7 +13,7 @@ import HistoirePage from "../pages/premium/HistoirePage.jsx";
 import GaleriePage from "../pages/premium/GaleriePage.jsx";
 import "../styles/prestige.css";
 
-export default function PrestigeTemplate({ config }) {
+export default function PrestigeTemplate({ config, mode, onChangerTheme }) {
   const [lang, setLang] = useState("fr");
   const t = config.contenu[lang]; // textes de la langue active
 
@@ -21,7 +21,14 @@ export default function PrestigeTemplate({ config }) {
     <BrowserRouter>
       <ScrollToTop />
       <div className="prestige">
-        <PremiumNav config={config} t={t} lang={lang} setLang={setLang} />
+        <PremiumNav
+          config={config}
+          t={t}
+          lang={lang}
+          setLang={setLang}
+          mode={mode}
+          onChangerTheme={onChangerTheme}
+        />
         <main>
           <Routes>
             <Route path="/" element={<AccueilPage config={config} t={t} />} />

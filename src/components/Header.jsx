@@ -1,5 +1,8 @@
-// En-tête fixe en haut de page : nom/logo à gauche, bouton Appeler à droite.
-export default function Header({ config }) {
+// En-tête fixe en haut de page : nom/logo à gauche, bascule de thème et
+// bouton Appeler à droite.
+import BasculeTheme from "./shared/BasculeTheme.jsx";
+
+export default function Header({ config, mode, onChangerTheme }) {
   const tel = config.infos.telephone.replace(/\s/g, "");
 
   return (
@@ -12,6 +15,7 @@ export default function Header({ config }) {
             config.nom
           )}
         </a>
+        <BasculeTheme config={config} mode={mode} onChanger={onChangerTheme} />
         <a href={`tel:${tel}`} className="btn btn--phone">
           📞 <span className="btn__label">Appeler</span>
         </a>

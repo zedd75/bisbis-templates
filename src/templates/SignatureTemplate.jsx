@@ -14,10 +14,10 @@ import Footer from "../components/Footer.jsx";
 import Reveal from "../components/shared/Reveal.jsx";
 import "../styles/signature.css";
 
-export default function SignatureTemplate({ config }) {
+export default function SignatureTemplate({ config, mode, onChangerTheme }) {
   return (
     <>
-      <SignatureHeader config={config} />
+      <SignatureHeader config={config} mode={mode} onChangerTheme={onChangerTheme} />
       <main>
         <Hero config={config} />
         {config.sections.apropos && (

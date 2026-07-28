@@ -32,6 +32,18 @@ const config = {
     policeTexte: "'Inter', sans-serif",
   },
 
+  // Apparence par défaut de ce template (le visiteur peut basculer si
+  // la fonctionnalité "Bascule clair/sombre" est activée).
+  themeDefaut: "clair",
+  themeAlternatif: {
+    primaire: "#C85A3C",    // terracotta éclairci
+    secondaire: "#E8B872",  // ocre éclairci
+    fond: "#17130F",
+    texte: "#F5EFE6",
+    policeTitres: "'Playfair Display', serif",
+    policeTexte: "'Inter', sans-serif",
+  },
+
   // --- Hero --------------------------------------------------
   hero: {
     image: "https://placehold.co/1600x900/9A3B26/FAF6EF?text=Photo+d%27accueil",

@@ -32,6 +32,23 @@ const config = {
     policeTexte: "'Lato', sans-serif",
   },
 
+  // Ce template est SOMBRE par défaut (son identité : l'or sur l'encre).
+  // La variante claire assombrit l'or : #CAAF63 sur fond clair manque de
+  // contraste. Quelques règles de prestige.css sont ajustées en mode clair
+  // (voir le bloc [data-theme="clair"]).
+  themeDefaut: "sombre",
+  themeAlternatif: {
+    encre: "#F7F2E8",   // devient le fond de page
+    charcoal: "#FFFFFF",
+    or: "#775F22",      // or assombri : lisible en texte sur fond clair (5.5)
+                        // ET support correct d'un texte clair en bouton (5.5)
+    creme: "#1A1D21",   // devient la couleur du texte
+    vert: "#1B3A2F",
+    policeTitres: "'Playfair Display', serif",
+    policeCaps: "'Cormorant Garamond', serif",
+    policeTexte: "'Lato', sans-serif",
+  },
+
   images: {
     hero: "https://placehold.co/1920x1080/0F1215/2a2a2a?text=+",
     story1: "https://placehold.co/900x1100/1E2024/CAAF63?text=Salle",

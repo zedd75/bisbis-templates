@@ -8,10 +8,10 @@ import MenuSection from "../components/MenuSection.jsx";
 import PracticalInfo from "../components/PracticalInfo.jsx";
 import Footer from "../components/Footer.jsx";
 
-export default function EssentielTemplate({ config }) {
+export default function EssentielTemplate({ config, mode, onChangerTheme }) {
   return (
     <>
-      <Header config={config} />
+      <Header config={config} mode={mode} onChangerTheme={onChangerTheme} />
       <main>
         <Hero config={config} />
         {config.sections.apropos && <About config={config} />}

@@ -36,6 +36,18 @@ const config = {
     policeTexte: "'Inter', sans-serif",
   },
 
+  // Apparence par défaut de ce template (le visiteur peut basculer si
+  // la fonctionnalité "Bascule clair/sombre" est activée).
+  themeDefaut: "clair",
+  themeAlternatif: {
+    primaire: "#C9553F",    // rouge éclairci pour rester lisible sur fond sombre
+    secondaire: "#D9B563",  // doré éclairci
+    fond: "#16130F",        // brun très sombre (garde la chaleur de l'identité)
+    texte: "#F0E9DF",
+    policeTitres: "'Playfair Display', serif",
+    policeTexte: "'Inter', sans-serif",
+  },
+
   // --- Section HERO (grande image d'accueil) ---------------
   hero: {
     // Remplacez par la vraie photo du client (ex: "/photos/salle.jpg")

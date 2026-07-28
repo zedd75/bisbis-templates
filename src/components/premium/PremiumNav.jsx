@@ -8,8 +8,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import slugify from "../../utils/slugify.js";
+import BasculeTheme from "../shared/BasculeTheme.jsx";
 
-export default function PremiumNav({ config, t, lang, setLang }) {
+export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [burgerOuvert, setBurgerOuvert] = useState(false);
   const [carteOuverte, setCarteOuverte] = useState(false);
@@ -98,6 +99,7 @@ export default function PremiumNav({ config, t, lang, setLang }) {
         </nav>
 
         <div className="pnav__actions">
+          <BasculeTheme config={config} mode={mode} onChanger={onChangerTheme} />
           <button
             className="pnav__lang"
             onClick={() => setLang(lang === "fr" ? "en" : "fr")}

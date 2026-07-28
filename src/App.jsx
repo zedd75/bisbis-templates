@@ -9,6 +9,9 @@ import { appliquerMenu } from "./utils/menuSheet.js";
 import useGalerieSupabase from "./hooks/useGalerieSupabase.js";
 import { appliquerGalerie } from "./utils/galerie.js";
 import { appliquerImages } from "./utils/images.js";
+import { appliquerCapacites } from "./utils/capacites.js";
+import { themeActif } from "./utils/theme.js";
+import useTheme from "./hooks/useTheme.js";
 import bistrotConfig from "./config/client.config.js";
 import palmaConfig from "./config/casa-palma.config.js";
 import doricConfig from "./config/le-doric.config.js";
@@ -49,27 +52,31 @@ export default function App() {
   //   3) sinon le menu statique de la config
   const { onglets: ongletsSupabase } = useMenuSupabase(config.restaurantId);
   const { onglets: ongletsSheet } = useMenuSheet(config.menuSheet);
-  const { sections: galerieSections, images: imagesSite } = useGalerieSupabase(
+  const { sections: galerieSections, images: imagesSite, capacites } = useGalerieSupabase(
     config.restaurantId
   );
   const onglets = ongletsSupabase || ongletsSheet;
   const configAvecMenu = onglets ? appliquerMenu(config, onglets) : config;
   const configAvecGalerie = appliquerGalerie(configAvecMenu, galerieSections);
-  const configFinal = appliquerImages(configAvecGalerie, imagesSite);
+  const configAvecImages = appliquerImages(configAvecGalerie, imagesSite);
+  const configFinal = appliquerCapacites(configAvecImages, capacites);
 
   const Template = TEMPLATES[configFinal.template] || EssentielTemplate;
 
-  // Chaque clé du thème devient une variable CSS.
+  // Mode d'affichage choisi par le visiteur (défaut : celui du template).
+  const [mode, setMode] = useTheme(configFinal);
+
+  // Chaque clé du thème ACTIF devient une variable CSS.
   // Ex : { or: "#CAAF63" }  ->  --or: #CAAF63
   const themeVars = {};
-  for (const [cle, valeur] of Object.entries(configFinal.theme)) {
+  for (const [cle, valeur] of Object.entries(themeActif(configFinal, mode))) {
     themeVars[`--${cle}`] = valeur;
   }
 
   return (
-    <div className="site" style={themeVars}>
+    <div className="site" style={themeVars} data-theme={mode}>
       <Seo config={configFinal} />
-      <Template config={configFinal} />
+      <Template config={configFinal} mode={mode} onChangerTheme={setMode} />
     </div>
   );
 }

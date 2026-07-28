@@ -3,8 +3,9 @@
 // Les liens ne s'affichent que si la section est activée dans
 // config.sections.
 import { useState } from "react";
+import BasculeTheme from "../shared/BasculeTheme.jsx";
 
-export default function SignatureHeader({ config }) {
+export default function SignatureHeader({ config, mode, onChangerTheme }) {
   const [burgerOuvert, setBurgerOuvert] = useState(false);
   const tel = config.infos.telephone.replace(/\s/g, "");
 
@@ -36,6 +37,7 @@ export default function SignatureHeader({ config }) {
         </nav>
 
         <div className="sheader__actions">
+          <BasculeTheme config={config} mode={mode} onChanger={onChangerTheme} />
           <a href={`tel:${tel}`} className="btn btn--phone">
             📞 <span className="btn__label">Appeler</span>
           </a>

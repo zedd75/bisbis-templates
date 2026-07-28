@@ -340,3 +340,20 @@ h3 {
     padding-bottom: 32px;
   }
 }
+
+/* --- Bascule clair / sombre (affichée si la fonctionnalité est activée) --- */
+.bascule-theme {
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+.bascule-theme:hover {
+  opacity: 1;
+}
