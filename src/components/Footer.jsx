@@ -23,7 +23,7 @@ export default function Footer({ config }) {
           </div>
 
           <p className="footer__legal">
-            © {annee} {config.nom} — Tous droits réservés
+            © {annee} {config.nom}. Tous droits réservés
           </p>
         </div>
       </footer>

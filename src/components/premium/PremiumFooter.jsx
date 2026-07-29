@@ -20,7 +20,7 @@ export default function PremiumFooter({ config }) {
       </div>
 
       <p className="pfooter__legal">
-        © {annee} {config.nom} — Tous droits réservés
+        © {annee} {config.nom}. Tous droits réservés
       </p>
     </footer>
   );

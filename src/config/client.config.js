@@ -55,7 +55,7 @@ const config = {
     // Remplacez par la vraie photo du client (ex: "/photos/salle.jpg")
     image: "https://placehold.co/1600x900/154734/FDF8F0?text=Photo+d%27accueil",
     titre: "Le Petit Marais",
-    sousTitre: "Bistrot parisien — cuisine de saison, au cœur du 3ᵉ",
+    sousTitre: "Bistrot parisien, cuisine de saison au cœur du 3ᵉ",
   },
 
   // --- Section À PROPOS ------------------------------------
@@ -76,7 +76,7 @@ const config = {
   menu: {
     titre: "La carte",
     categories: [
-      { nom: "Mezzés — à partager", plats: nourriture.mezzes },
+      { nom: "Mezzés à partager", plats: nourriture.mezzes },
       { nom: "Pâtes & risotto", plats: nourriture.patesRisotto },
       { nom: "Pizzas", plats: nourriture.pizzas },
       { nom: "Crus", plats: nourriture.crus },

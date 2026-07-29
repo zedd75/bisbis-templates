@@ -54,7 +54,7 @@ const config = {
   hero: {
     image: "https://placehold.co/1600x900/9A3B26/FAF6EF?text=Photo+d%27accueil",
     titre: "Casa Palma",
-    sousTitre: "Trattoria méditerranéenne — mezzés, pizzas et grillades au feu de bois",
+    sousTitre: "Trattoria méditerranéenne : mezzés, pizzas et grillades au feu de bois",
   },
 
   // --- À propos ----------------------------------------------
@@ -86,7 +86,7 @@ const config = {
     titre: "Cartes & menus",
     formules: {
       titre: "Menu déjeuner",
-      note: "Du lundi au vendredi midi, hors jours fériés — boisson non comprise",
+      note: "Du lundi au vendredi midi, hors jours fériés, boisson non comprise",
       items: [
         { nom: "Entrée + Plat", prix: "22,50€" },
         { nom: "Plat + Dessert", prix: "22,50€" },
@@ -99,7 +99,7 @@ const config = {
         id: "carte",
         nom: "La carte",
         categories: [
-          { nom: "Mezzés — à partager", plats: nourriture.mezzes },
+          { nom: "Mezzés à partager", plats: nourriture.mezzes },
           { nom: "Pâtes & risotto", plats: nourriture.patesRisotto },
           { nom: "Pizzas", plats: nourriture.pizzas },
           { nom: "Crus", plats: nourriture.crus },
@@ -111,7 +111,7 @@ const config = {
       {
         id: "dejeuner",
         nom: "Menu déjeuner",
-        note: "Lundi au vendredi midi, hors fériés — Entrée + Plat ou Plat + Dessert 22,50€ · Entrée + Plat + Dessert 25,50€",
+        note: "Lundi au vendredi midi, hors fériés : Entrée + Plat ou Plat + Dessert 22,50€ · Entrée + Plat + Dessert 25,50€",
         categories: [
           { nom: "Entrées au choix", plats: dejeuner.entrees },
           { nom: "Plats au choix", plats: dejeuner.plats },
@@ -121,7 +121,7 @@ const config = {
       {
         id: "enfant",
         nom: "Menu enfant",
-        note: "Jusqu'à 12 ans — 15,00€",
+        note: "Jusqu'à 12 ans, 15,00€",
         categories: [
           { nom: "Plat au choix", plats: enfant.plats },
           { nom: "Dessert au choix", plats: enfant.desserts },
@@ -150,7 +150,7 @@ const config = {
       {
         id: "spiritueux",
         nom: "Spiritueux",
-        note: "Servis 4cl — supplément accompagnement 2,50€",
+        note: "Servis 4cl, supplément accompagnement 2,50€",
         categories: [
           { nom: "Gins", plats: spiritueux.gins },
           { nom: "Whiskies", plats: spiritueux.whiskies },
@@ -169,9 +169,9 @@ const config = {
           { nom: "Vins blancs au verre", plats: vins.verreBlancs },
           { nom: "Vins rosés au verre", plats: vins.verreRoses },
           { nom: "Vins rouges au verre", plats: vins.verreRouges },
-          { nom: "Blancs — bouteilles", plats: vins.btlBlancs },
-          { nom: "Rosés — bouteilles", plats: vins.btlRoses },
-          { nom: "Rouges — bouteilles", plats: vins.btlRouges },
+          { nom: "Blancs en bouteille", plats: vins.btlBlancs },
+          { nom: "Rosés en bouteille", plats: vins.btlRoses },
+          { nom: "Rouges en bouteille", plats: vins.btlRouges },
         ],
       },
     ],

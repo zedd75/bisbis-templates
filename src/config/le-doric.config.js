@@ -115,10 +115,10 @@ const config = {
         label: "À table",
         titre: "Cartes & menus",
         texte:
-          "Mezzés à partager, grillades, douceurs et belle carte de boissons — une cuisine généreuse aux accents méditerranéens, du matin au soir.",
+          "Mezzés à partager, grillades, douceurs et belle carte de boissons : une cuisine généreuse aux accents méditerranéens, du matin au soir.",
         formules: {
           titre: "Menu déjeuner",
-          note: "Du lundi au vendredi midi, hors jours fériés — boisson non comprise",
+          note: "Du lundi au vendredi midi, hors jours fériés, boisson non comprise",
           items: [
             { nom: "Entrée + Plat", prix: "22,50€" },
             { nom: "Plat + Dessert", prix: "22,50€" },
@@ -131,7 +131,7 @@ const config = {
             id: "carte",
             nom: "La carte",
             categories: [
-              { nom: "Mezzés — à partager", plats: nourriture.mezzes },
+              { nom: "Mezzés à partager", plats: nourriture.mezzes },
               { nom: "Pâtes & risotto", plats: nourriture.patesRisotto },
               { nom: "Pizzas", plats: nourriture.pizzas },
               { nom: "Crus", plats: nourriture.crus },
@@ -143,7 +143,7 @@ const config = {
           {
             id: "dejeuner",
             nom: "Menu déjeuner",
-            note: "Lundi au vendredi midi, hors fériés — Entrée + Plat ou Plat + Dessert 22,50€ · Entrée + Plat + Dessert 25,50€",
+            note: "Lundi au vendredi midi, hors fériés : Entrée + Plat ou Plat + Dessert 22,50€ · Entrée + Plat + Dessert 25,50€",
             categories: [
               { nom: "Entrées au choix", plats: dejeuner.entrees },
               { nom: "Plats au choix", plats: dejeuner.plats },
@@ -153,7 +153,7 @@ const config = {
           {
             id: "enfant",
             nom: "Menu enfant",
-            note: "Jusqu'à 12 ans — 15,00€",
+            note: "Jusqu'à 12 ans, 15,00€",
             categories: [
               { nom: "Plat au choix", plats: enfant.plats },
               { nom: "Dessert au choix", plats: enfant.desserts },
@@ -182,7 +182,7 @@ const config = {
           {
             id: "spiritueux",
             nom: "Spiritueux",
-            note: "Servis 4cl — supplément accompagnement 2,50€",
+            note: "Servis 4cl, supplément accompagnement 2,50€",
             categories: [
               { nom: "Gins", plats: spiritueux.gins },
               { nom: "Whiskies", plats: spiritueux.whiskies },
@@ -201,9 +201,9 @@ const config = {
               { nom: "Vins blancs au verre", plats: vins.verreBlancs },
               { nom: "Vins rosés au verre", plats: vins.verreRoses },
               { nom: "Vins rouges au verre", plats: vins.verreRouges },
-              { nom: "Blancs — bouteilles", plats: vins.btlBlancs },
-              { nom: "Rosés — bouteilles", plats: vins.btlRoses },
-              { nom: "Rouges — bouteilles", plats: vins.btlRouges },
+              { nom: "Blancs en bouteille", plats: vins.btlBlancs },
+              { nom: "Rosés en bouteille", plats: vins.btlRoses },
+              { nom: "Rouges en bouteille", plats: vins.btlRouges },
             ],
           },
         ],
@@ -219,7 +219,7 @@ const config = {
           {
             titre: "Une adresse, un voyage",
             texte:
-              "À deux pas de l'Arc de Triomphe, la maison a toujours cultivé l'art de recevoir. Le décor, pensé dans les moindres détails — bois sombre, cuir patiné, laiton doré — invite au voyage sans quitter Paris.",
+              "À deux pas de l'Arc de Triomphe, la maison a toujours cultivé l'art de recevoir. Le décor, pensé dans les moindres détails (bois sombre, cuir patiné, laiton doré), invite au voyage sans quitter Paris.",
           },
           {
             titre: "L'esprit British, l'âme indienne",
@@ -240,7 +240,7 @@ const config = {
         label: "En images",
         titre: "Galerie",
         texte:
-          "L'ambiance, la salle, les assiettes — quelques instantanés de la maison.",
+          "L'ambiance, la salle, les assiettes : quelques instantanés de la maison.",
       },
     },
 
@@ -273,10 +273,10 @@ const config = {
         label: "At the table",
         titre: "Menus",
         texte:
-          "Mezze to share, grills, sweet treats and a fine drinks list — generous Mediterranean-inspired cuisine, from morning to night.",
+          "Mezze to share, grills, sweet treats and a fine drinks list: generous Mediterranean-inspired cuisine, from morning to night.",
         formules: {
           titre: "Lunch menu",
-          note: "Monday to Friday lunchtime, excluding public holidays — drink not included",
+          note: "Monday to Friday lunchtime, excluding public holidays, drink not included",
           items: [
             { nom: "Starter + Main", prix: "22,50€" },
             { nom: "Main + Dessert", prix: "22,50€" },
@@ -289,7 +289,7 @@ const config = {
             id: "carte",
             nom: "The menu",
             categories: [
-              { nom: "Mezze — to share", plats: nourriture.mezzes },
+              { nom: "Mezze to share", plats: nourriture.mezzes },
               { nom: "Pasta & risotto", plats: nourriture.patesRisotto },
               { nom: "Pizzas", plats: nourriture.pizzas },
               { nom: "Raw bar", plats: nourriture.crus },
@@ -301,7 +301,7 @@ const config = {
           {
             id: "dejeuner",
             nom: "Lunch menu",
-            note: "Monday to Friday lunchtime, excluding public holidays — Starter + Main or Main + Dessert €22.50 · Starter + Main + Dessert €25.50",
+            note: "Monday to Friday lunchtime, excluding public holidays: Starter + Main or Main + Dessert €22.50 · Starter + Main + Dessert €25.50",
             categories: [
               { nom: "Choice of starters", plats: dejeuner.entrees },
               { nom: "Choice of mains", plats: dejeuner.plats },
@@ -311,7 +311,7 @@ const config = {
           {
             id: "enfant",
             nom: "Kids menu",
-            note: "Up to 12 years old — €15.00",
+            note: "Up to 12 years old, €15.00",
             categories: [
               { nom: "Choice of main", plats: enfant.plats },
               { nom: "Choice of dessert", plats: enfant.desserts },
@@ -340,7 +340,7 @@ const config = {
           {
             id: "spiritueux",
             nom: "Spirits",
-            note: "Served 4cl — mixer supplement €2.50",
+            note: "Served 4cl, mixer supplement €2.50",
             categories: [
               { nom: "Gins", plats: spiritueux.gins },
               { nom: "Whiskies", plats: spiritueux.whiskies },
@@ -359,9 +359,9 @@ const config = {
               { nom: "White wines by the glass", plats: vins.verreBlancs },
               { nom: "Rosé wines by the glass", plats: vins.verreRoses },
               { nom: "Red wines by the glass", plats: vins.verreRouges },
-              { nom: "Whites — bottles", plats: vins.btlBlancs },
-              { nom: "Rosés — bottles", plats: vins.btlRoses },
-              { nom: "Reds — bottles", plats: vins.btlRouges },
+              { nom: "Whites by the bottle", plats: vins.btlBlancs },
+              { nom: "Rosés by the bottle", plats: vins.btlRoses },
+              { nom: "Reds by the bottle", plats: vins.btlRouges },
             ],
           },
         ],
@@ -376,7 +376,7 @@ const config = {
           {
             titre: "One address, one journey",
             texte:
-              "A stone's throw from the Arc de Triomphe, the house has always cultivated the art of hospitality. The interior — dark wood, patinated leather, golden brass — invites you to travel without leaving Paris.",
+              "A stone's throw from the Arc de Triomphe, the house has always cultivated the art of hospitality. The interior (dark wood, patinated leather, golden brass) invites you to travel without leaving Paris.",
           },
           {
             titre: "British spirit, Indian soul",
@@ -396,7 +396,7 @@ const config = {
         label: "In pictures",
         titre: "Gallery",
         texte:
-          "The atmosphere, the room, the plates — a few snapshots of the house.",
+          "The atmosphere, the room, the plates: a few snapshots of the house.",
       },
     },
   },
