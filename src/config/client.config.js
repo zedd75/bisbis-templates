@@ -28,7 +28,7 @@ const config = {
   // --- Thème : couleurs & polices --------------------------
   //  Changez ces couleurs et TOUT le site s'adapte.
   theme: {
-    primaire: "#8B2E2E",    // couleur principale (boutons, titres)
+    primaire: "#154734",    // couleur principale (boutons, titres) — Pantone 3435 C
     surPrimaire: "#ffffff", // texte posé SUR la couleur primaire (boutons, pied de page)
     secondaire: "#C9A24B",  // couleur d'accent (doré)
     fond: "#FDF8F0",        // fond de page (crème)
@@ -41,7 +41,7 @@ const config = {
   // la fonctionnalité "Bascule clair/sombre" est activée).
   themeDefaut: "clair",
   themeAlternatif: {
-    primaire: "#D77A62",    // rouge éclairci — contraste 6.0 sur le fond sombre
+    primaire: "#4FB088",    // vert éclairci (même teinte) — contraste 7.0 sur le fond sombre
     surPrimaire: "#1a1a1a", // à cette clarté, le texte foncé est plus lisible que le blanc
     secondaire: "#D9B563",  // doré éclairci
     fond: "#16130F",        // brun très sombre (garde la chaleur de l'identité)
@@ -53,7 +53,7 @@ const config = {
   // --- Section HERO (grande image d'accueil) ---------------
   hero: {
     // Remplacez par la vraie photo du client (ex: "/photos/salle.jpg")
-    image: "https://placehold.co/1600x900/8B2E2E/FDF8F0?text=Photo+d%27accueil",
+    image: "https://placehold.co/1600x900/154734/FDF8F0?text=Photo+d%27accueil",
     titre: "Le Petit Marais",
     sousTitre: "Bistrot parisien — cuisine de saison, au cœur du 3ᵉ",
   },
