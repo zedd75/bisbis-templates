@@ -37,10 +37,14 @@ function ongletsDepuisRows(rows, notes = {}) {
 
 export default function useMenuSupabase(restaurantId) {
   const [onglets, setOnglets] = useState(null);
+  // Traductions de la charpente du menu, par langue. {} = aucune, on reste
+  // dans la langue de saisie.
+  const [traductions, setTraductions] = useState({});
 
   useEffect(() => {
     if (!restaurantId) {
       setOnglets(null);
+      setTraductions({});
       return;
     }
     let annule = false;
@@ -49,23 +53,29 @@ export default function useMenuSupabase(restaurantId) {
     const urlPlats =
       `${SUPABASE_URL}/rest/v1/plats?restaurant_id=eq.${rid}` +
       `&select=menu,categorie,nom,description,prix,ordre&order=ordre`;
-    const urlNotes =
-      `${SUPABASE_URL}/rest/v1/restaurants?id=eq.${rid}&select=notes_onglets`;
+    const urlResto =
+      `${SUPABASE_URL}/rest/v1/restaurants?id=eq.${rid}` +
+      `&select=notes_onglets,traductions`;
 
-    // Les mentions sont accessoires : si leur lecture échoue, le menu doit
-    // quand même s'afficher. On les isole donc dans leur propre repli.
-    const lireNotes = fetch(urlNotes, { headers: entetes, cache: "no-store" })
+    // Mentions et traductions sont accessoires : si leur lecture échoue, le
+    // menu doit quand même s'afficher. On les isole dans leur propre repli.
+    const lireResto = fetch(urlResto, { headers: entetes, cache: "no-store" })
       .then((r) => (r.ok ? r.json() : []))
-      .then((lignes) => lignes?.[0]?.notes_onglets || {})
-      .catch(() => ({}));
+      .then((lignes) => ({
+        notes: lignes?.[0]?.notes_onglets || {},
+        traductions: lignes?.[0]?.traductions || {},
+      }))
+      .catch(() => ({ notes: {}, traductions: {} }));
 
     const lirePlats = fetch(urlPlats, { headers: entetes, cache: "no-store" }).then(
       (r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status)))
     );
 
-    Promise.all([lirePlats, lireNotes])
-      .then(([rows, notes]) => {
-        if (!annule) setOnglets(rows.length ? ongletsDepuisRows(rows, notes) : null);
+    Promise.all([lirePlats, lireResto])
+      .then(([rows, extra]) => {
+        if (annule) return;
+        setOnglets(rows.length ? ongletsDepuisRows(rows, extra.notes) : null);
+        setTraductions(extra.traductions);
       })
       .catch((e) => {
         if (!annule) {
@@ -79,5 +89,5 @@ export default function useMenuSupabase(restaurantId) {
     };
   }, [restaurantId]);
 
-  return { onglets };
+  return { onglets, traductions };
 }

@@ -50,13 +50,15 @@ export default function App() {
   //   1) Supabase (via config.restaurantId) — mis à jour par CometStudio
   //   2) sinon un CSV (config.menuSheet)
   //   3) sinon le menu statique de la config
-  const { onglets: ongletsSupabase } = useMenuSupabase(config.restaurantId);
+  const { onglets: ongletsSupabase, traductions } = useMenuSupabase(config.restaurantId);
   const { onglets: ongletsSheet } = useMenuSheet(config.menuSheet);
   const { sections: galerieSections, images: imagesSite, capacites } = useGalerieSupabase(
     config.restaurantId
   );
   const onglets = ongletsSupabase || ongletsSheet;
-  const configAvecMenu = onglets ? appliquerMenu(config, onglets) : config;
+  const configAvecMenu = onglets
+    ? appliquerMenu(config, onglets, traductions)
+    : config;
   const configAvecGalerie = appliquerGalerie(configAvecMenu, galerieSections);
   const configAvecImages = appliquerImages(configAvecGalerie, imagesSite);
   const configFinal = appliquerCapacites(configAvecImages, capacites);

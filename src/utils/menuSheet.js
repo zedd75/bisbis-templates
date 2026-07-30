@@ -102,9 +102,48 @@ export function reporterNotes(ongletsBase, ongletsReference) {
   return repris ? sortie : ongletsBase;
 }
 
+// Traduit la CHARPENTE du menu : noms d'onglets et titres de catégories.
+// Les plats ne sont PAS traduits — décision assumée : les intitulés de plats
+// restent dans la langue de saisie du restaurateur, comme sur les cartes des
+// bonnes tables parisiennes.
+//
+// "dico" a la forme { onglets: {...}, categories: {...} }, indexée par le
+// libellé français. Une clé absente = on garde le français, ce qui évite de
+// casser quand le restaurateur ajoute une catégorie sans la traduire.
+//
+// Les identifiants d'onglets ne changent pas : la sélection d'onglet continue
+// de fonctionner à l'identique d'une langue à l'autre.
+// Si rien n'est traduit, on renvoie le tableau d'origine (identité préservée).
+export function traduireOnglets(onglets, dico) {
+  if (!onglets || !dico) return onglets;
+  const tOnglets = dico.onglets || {};
+  const tCategories = dico.categories || {};
+  let traduit = false;
+
+  const sortie = onglets.map((onglet) => {
+    const nomTraduit = tOnglets[onglet.nom];
+    let categoriesTraduites = false;
+    const categories = (onglet.categories || []).map((categorie) => {
+      const nomCat = tCategories[categorie.nom];
+      if (!nomCat) return categorie;
+      categoriesTraduites = true;
+      return { ...categorie, nom: nomCat };
+    });
+    if (!nomTraduit && !categoriesTraduites) return onglet;
+    traduit = true;
+    return nomTraduit
+      ? { ...onglet, nom: nomTraduit, categories }
+      : { ...onglet, categories };
+  });
+
+  return traduit ? sortie : onglets;
+}
+
 // Applique les onglets à la config, au bon endroit selon le template.
 // Ne remplace QUE la liste des plats : couleurs, formules, textes... restent.
-export function appliquerMenu(config, onglets) {
+// "traductions" (facultatif) a la forme { en: { onglets, categories } } et ne
+// concerne que les templates multilingues (Prestige aujourd'hui).
+export function appliquerMenu(config, onglets, traductions) {
   if (!onglets || onglets.length === 0) return config;
 
   if (config.template === "essentiel") {
@@ -127,9 +166,15 @@ export function appliquerMenu(config, onglets) {
     // unique, pas de traduction. Lu avant la boucle, qui réécrit "contenu".
     const avecNotes = reporterNotes(onglets, contenu[langues[0]]?.carte?.onglets);
     for (const langue of langues) {
+      // Chaque langue reçoit les MÊMES plats, mais sa propre charpente
+      // traduite. La première langue (le français) n'a pas de dictionnaire :
+      // traduireOnglets renvoie alors le tableau inchangé.
       contenu[langue] = {
         ...contenu[langue],
-        carte: { ...contenu[langue].carte, onglets: avecNotes },
+        carte: {
+          ...contenu[langue].carte,
+          onglets: traduireOnglets(avecNotes, traductions?.[langue]),
+        },
       };
     }
     return { ...config, contenu };
