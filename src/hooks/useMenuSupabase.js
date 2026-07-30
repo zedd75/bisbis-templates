@@ -7,7 +7,11 @@ import { SUPABASE_URL, SUPABASE_KEY } from "../lib/supabase.js";
 import slugify from "../utils/slugify.js";
 
 // Lignes plates (déjà triées par "ordre") -> onglets imbriqués.
-function ongletsDepuisRows(rows) {
+// "notes" = mentions saisies dans CometStudio, indexées par NOM de menu
+// (colonne restaurants.notes_onglets). Sans mention, la clé "note" reste
+// absente : la note déclarée dans la config prend alors le relais
+// (voir reporterNotes dans utils/menuSheet.js).
+function ongletsDepuisRows(rows, notes = {}) {
   const menus = [];
   const parMenu = new Map();
   for (const l of rows) {
@@ -25,7 +29,10 @@ function ongletsDepuisRows(rows) {
     }
     cat.plats.push({ nom: l.nom, desc: l.description || "", prix: l.prix || "" });
   }
-  return menus.map(({ id, nom, categories }) => ({ id, nom, categories }));
+  return menus.map(({ id, nom, categories }) => {
+    const note = notes[nom];
+    return note ? { id, nom, note, categories } : { id, nom, categories };
+  });
 }
 
 export default function useMenuSupabase(restaurantId) {
@@ -37,15 +44,28 @@ export default function useMenuSupabase(restaurantId) {
       return;
     }
     let annule = false;
-    const url =
-      `${SUPABASE_URL}/rest/v1/plats` +
-      `?restaurant_id=eq.${encodeURIComponent(restaurantId)}` +
+    const rid = encodeURIComponent(restaurantId);
+    const entetes = { apikey: SUPABASE_KEY };
+    const urlPlats =
+      `${SUPABASE_URL}/rest/v1/plats?restaurant_id=eq.${rid}` +
       `&select=menu,categorie,nom,description,prix,ordre&order=ordre`;
+    const urlNotes =
+      `${SUPABASE_URL}/rest/v1/restaurants?id=eq.${rid}&select=notes_onglets`;
 
-    fetch(url, { headers: { apikey: SUPABASE_KEY }, cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
-      .then((rows) => {
-        if (!annule) setOnglets(rows.length ? ongletsDepuisRows(rows) : null);
+    // Les mentions sont accessoires : si leur lecture échoue, le menu doit
+    // quand même s'afficher. On les isole donc dans leur propre repli.
+    const lireNotes = fetch(urlNotes, { headers: entetes, cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((lignes) => lignes?.[0]?.notes_onglets || {})
+      .catch(() => ({}));
+
+    const lirePlats = fetch(urlPlats, { headers: entetes, cache: "no-store" }).then(
+      (r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status)))
+    );
+
+    Promise.all([lirePlats, lireNotes])
+      .then(([rows, notes]) => {
+        if (!annule) setOnglets(rows.length ? ongletsDepuisRows(rows, notes) : null);
       })
       .catch((e) => {
         if (!annule) {
