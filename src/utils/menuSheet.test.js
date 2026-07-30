@@ -1,6 +1,6 @@
 // Tests du parsing CSV -> menu et de son application selon le template.
 import { describe, it, expect } from "vitest";
-import { construireOnglets, appliquerMenu } from "./menuSheet.js";
+import { construireOnglets, appliquerMenu, reporterNotes } from "./menuSheet.js";
 
 describe("construireOnglets (CSV -> menu)", () => {
   it("construit un menu / une catégorie / plusieurs plats", () => {
@@ -100,5 +100,102 @@ describe("appliquerMenu (application selon le template)", () => {
   it("renvoie la config inchangée pour un template inconnu", () => {
     const config = { template: "mystere" };
     expect(appliquerMenu(config, onglets)).toBe(config);
+  });
+});
+
+describe("reporterNotes (les notes d'onglet survivent au menu piloté)", () => {
+  const base = [
+    { id: "menu-dejeuner", nom: "Menu déjeuner", categories: [] },
+    { id: "boissons", nom: "Boissons", categories: [] },
+  ];
+
+  it("reprend la note quand les NOMS correspondent, malgré des id différents", () => {
+    // C'est le cas réel : la config écrit id "dejeuner", la base "menu-dejeuner".
+    const reference = [{ id: "dejeuner", nom: "Menu déjeuner", note: "Hors fériés" }];
+    const out = reporterNotes(base, reference);
+    expect(out[0].note).toBe("Hors fériés");
+    expect(out[0].id).toBe("menu-dejeuner"); // l'id reste celui de la base
+  });
+
+  it("ne reporte rien si aucun nom ne correspond", () => {
+    const reference = [{ id: "dejeuner", nom: "Lunch menu", note: "Weekdays only" }];
+    expect(reporterNotes(base, reference)).toBe(base); // identité préservée
+    expect(base[0].note).toBeUndefined();
+  });
+
+  it("ne reprend QUE la note : aucun autre champ de la config ne fuit", () => {
+    const reference = [
+      {
+        id: "dejeuner",
+        nom: "Menu déjeuner",
+        note: "Hors fériés",
+        categories: [{ nom: "Vieille catégorie", plats: [{ nom: "Vieux plat" }] }],
+        extra: "ne doit pas passer",
+      },
+    ];
+    const out = reporterNotes(base, reference);
+    expect(out[0].categories).toBe(base[0].categories); // celles de la base
+    expect(out[0].extra).toBeUndefined();
+    expect(Object.keys(out[0]).sort()).toEqual(["categories", "id", "nom", "note"]);
+  });
+
+  it("laisse la priorité à une note déjà portée par la base", () => {
+    const baseAvecNote = [{ id: "boissons", nom: "Boissons", note: "de la base" }];
+    const reference = [{ nom: "Boissons", note: "de la config" }];
+    expect(reporterNotes(baseAvecNote, reference)[0].note).toBe("de la base");
+  });
+
+  it("supporte une référence vide, absente ou une base absente", () => {
+    expect(reporterNotes(base, [])).toBe(base);
+    expect(reporterNotes(base, null)).toBe(base);
+    expect(reporterNotes(base, undefined)).toBe(base);
+    expect(reporterNotes(null, [{ nom: "x", note: "y" }])).toBe(null);
+  });
+
+  it("signature : la note revient après application du menu piloté", () => {
+    const config = {
+      template: "signature",
+      menus: { onglets: [{ id: "spiritueux", nom: "Spiritueux", note: "Servis 4cl" }] },
+    };
+    const out = appliquerMenu(config, [
+      { id: "spiritueux", nom: "Spiritueux", categories: [] },
+    ]);
+    expect(out.menus.onglets[0].note).toBe("Servis 4cl");
+  });
+
+  it("prestige : la note du français s'affiche aussi en anglais", () => {
+    const config = {
+      template: "prestige",
+      contenu: {
+        fr: { carte: { onglets: [{ nom: "Menu enfant", note: "Jusqu'à 12 ans" }] } },
+        en: { carte: { onglets: [{ nom: "Kids menu", note: "Up to 12" }] } },
+      },
+    };
+    // Le menu vient de la base, donc ses libellés sont en français.
+    const out = appliquerMenu(config, [
+      { id: "menu-enfant", nom: "Menu enfant", categories: [] },
+    ]);
+    expect(out.contenu.fr.carte.onglets[0].note).toBe("Jusqu'à 12 ans");
+    expect(out.contenu.en.carte.onglets[0].note).toBe("Jusqu'à 12 ans");
+  });
+
+  it("aller-retour complet : CSV -> onglets -> config, la note survit", () => {
+    const onglets = construireOnglets([
+      ["menu", "categorie", "plat", "prix"],
+      ["Menu déjeuner", "Entrées", "Houmous", "7€"],
+    ]);
+    expect(onglets[0].id).toBe("menu-dejeuner"); // id dérivé, différent de la config
+    const config = {
+      template: "prestige",
+      contenu: {
+        fr: {
+          carte: { onglets: [{ id: "dejeuner", nom: "Menu déjeuner", note: "Hors fériés" }] },
+        },
+      },
+    };
+    const out = appliquerMenu(config, onglets);
+    const onglet = out.contenu.fr.carte.onglets[0];
+    expect(onglet.note).toBe("Hors fériés");
+    expect(onglet.categories[0].plats[0].nom).toBe("Houmous"); // plats bien ceux du CSV
   });
 });
