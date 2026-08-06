@@ -408,6 +408,57 @@
 /* ============================================================
    INFOS PRATIQUES
    ============================================================ */
+/* --- Avis clients (page d'accueil, au-dessus des infos pratiques) --- */
+/* Fond de page : les cartes en --charcoal s'en détachent, et le bloc
+   alterne avec .pinfos qui est entièrement en --charcoal. */
+.pavis {
+  padding: 64px 22px 8px;
+}
+.pavis__title {
+  font-family: var(--policeTitres);
+  color: var(--creme);
+  font-size: 30px;
+  text-align: center;
+  margin: 0 0 36px;
+}
+.pavis__grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+}
+.pavis__card {
+  height: 100%;
+  background: var(--charcoal);
+  border: 1px solid rgba(202, 175, 99, 0.22); /* repli */
+  border: 1px solid rgb(from var(--or) r g b / 0.22);
+  border-radius: 10px;
+  padding: 26px 24px;
+}
+.pavis__stars {
+  color: var(--or);
+  letter-spacing: 0.16em;
+  font-size: 15px;
+  margin: 0 0 14px;
+}
+.pavis__stars-empty {
+  opacity: 0.28;
+}
+.pavis__text {
+  font-style: italic;
+  margin: 0 0 16px;
+  color: rgba(244, 237, 225, 0.9); /* repli */
+  color: rgb(from var(--creme) r g b / 0.9);
+}
+.pavis__name {
+  margin: 0;
+  color: var(--or);
+  font-family: var(--policeCaps);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 13px;
+}
+
 .pinfos {
   background: var(--charcoal);
   padding: 64px 22px;
@@ -812,6 +863,9 @@
   }
   .pstory__text {
     padding: 64px 56px;
+  }
+  .pavis__grid {
+    grid-template-columns: repeat(3, 1fr);
   }
   .pinfos__grid {
     grid-template-columns: 1fr 1.2fr;

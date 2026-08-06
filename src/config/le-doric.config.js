@@ -242,6 +242,10 @@ const config = {
         texte:
           "L'ambiance, la salle, les assiettes : quelques instantanés de la maison.",
       },
+
+      // --- BLOC AVIS (page d'accueil) ---
+      // Seul le titre vit ici : les avis eux-mêmes viennent de CometStudio.
+      avis: { titre: "Ils en parlent" },
     },
 
     en: {
@@ -398,6 +402,8 @@ const config = {
         texte:
           "The atmosphere, the room, the plates: a few snapshots of the house.",
       },
+
+      avis: { titre: "What they say" },
     },
   },
 };

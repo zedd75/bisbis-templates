@@ -7,7 +7,9 @@ import useMenuSheet from "./hooks/useMenuSheet.js";
 import useMenuSupabase from "./hooks/useMenuSupabase.js";
 import { appliquerMenu } from "./utils/menuSheet.js";
 import useGalerieSupabase from "./hooks/useGalerieSupabase.js";
+import useAvisSupabase from "./hooks/useAvisSupabase.js";
 import { appliquerGalerie } from "./utils/galerie.js";
+import { appliquerAvis } from "./utils/avis.js";
 import { appliquerImages } from "./utils/images.js";
 import { appliquerCapacites } from "./utils/capacites.js";
 import { themeActif } from "./utils/theme.js";
@@ -55,12 +57,14 @@ export default function App() {
   const { sections: galerieSections, images: imagesSite, capacites } = useGalerieSupabase(
     config.restaurantId
   );
+  const { avis } = useAvisSupabase(config.restaurantId);
   const onglets = ongletsSupabase || ongletsSheet;
   const configAvecMenu = onglets
     ? appliquerMenu(config, onglets, traductions)
     : config;
   const configAvecGalerie = appliquerGalerie(configAvecMenu, galerieSections);
-  const configAvecImages = appliquerImages(configAvecGalerie, imagesSite);
+  const configAvecAvis = appliquerAvis(configAvecGalerie, avis);
+  const configAvecImages = appliquerImages(configAvecAvis, imagesSite);
   const configFinal = appliquerCapacites(configAvecImages, capacites);
 
   const Template = TEMPLATES[configFinal.template] || EssentielTemplate;
