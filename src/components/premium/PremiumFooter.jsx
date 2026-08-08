@@ -19,6 +19,12 @@ export default function PremiumFooter({ config }) {
         )}
       </div>
 
+      {/* Obligation légale : accessibles depuis chaque page du site. */}
+      <nav className="pfooter__legalliens">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/confidentialite">Confidentialité</a>
+      </nav>
+
       <p className="pfooter__legal">
         © {annee} {config.nom}. Tous droits réservés
       </p>

@@ -20,7 +20,10 @@ import doricConfig from "./config/le-doric.config.js";
 import EssentielTemplate from "./templates/EssentielTemplate.jsx";
 import SignatureTemplate from "./templates/SignatureTemplate.jsx";
 import PrestigeTemplate from "./templates/PrestigeTemplate.jsx";
+import PageLegale from "./components/shared/PageLegale.jsx";
+import { CHEMIN_MENTIONS, CHEMIN_CONFIDENTIALITE } from "./config/legal.js";
 import "./styles/theme.css";
+import "./styles/legal.css";
 
 // ------------------------------------------------------------
 //  SÉLECTION DU CLIENT AFFICHÉ
@@ -46,6 +49,23 @@ const TEMPLATES = {
   signature: SignatureTemplate,
   prestige: PrestigeTemplate,
 };
+
+// ------------------------------------------------------------
+//  PAGES LÉGALES
+//  Elles remplacent le template au lieu de s'y ajouter : elles sont
+//  communes aux 3 offres et ne dépendent d'aucune mise en scène.
+//  Lu une seule fois : on n'y arrive que par un vrai chargement de page
+//  (lien du pied de page, ou adresse tapée), jamais en navigation interne.
+//  ⚠️ index.html doit connaître ces mêmes chemins, sinon sa redirection
+//  vers le showroom les rendrait injoignables dans un onglet neuf.
+// ------------------------------------------------------------
+const cheminActuel = window.location.pathname.replace(/\/+$/, "") || "/";
+const PAGE_LEGALE =
+  cheminActuel === CHEMIN_MENTIONS
+    ? "mentions"
+    : cheminActuel === CHEMIN_CONFIDENTIALITE
+      ? "confidentialite"
+      : null;
 
 export default function App() {
   // Menu piloté à distance. Priorité :
@@ -77,6 +97,21 @@ export default function App() {
   const themeVars = {};
   for (const [cle, valeur] of Object.entries(themeActif(configFinal, mode))) {
     themeVars[`--${cle}`] = valeur;
+  }
+
+  // Sortie APRÈS tous les hooks : leur ordre doit rester constant.
+  // Seo n'est pas monté ici, il écraserait le titre de la page légale.
+  if (PAGE_LEGALE) {
+    return (
+      <div className="site" style={themeVars} data-theme={mode}>
+        <PageLegale
+          config={configFinal}
+          page={PAGE_LEGALE}
+          mode={mode}
+          onChangerTheme={setMode}
+        />
+      </div>
+    );
   }
 
   return (

@@ -288,6 +288,22 @@ h3 {
   text-decoration: none;
   font-weight: 600;
 }
+.footer__legalliens {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.footer__legalliens a {
+  /* Même parti pris que .footer__social : on suit la couleur du pied de
+     page, l'accent doré manque de contraste sur ce fond. */
+  color: inherit;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .footer__legal {
   font-size: 13px;
   opacity: 0.8;

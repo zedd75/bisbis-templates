@@ -22,6 +22,14 @@ export default function Footer({ config }) {
             )}
           </div>
 
+          {/* Obligation légale : ces pages doivent être accessibles depuis
+              chaque page du site. Liens classiques (pas de navigation
+              interne) : App.jsx lit le chemin au chargement. */}
+          <nav className="footer__legalliens">
+            <a href="/mentions-legales">Mentions légales</a>
+            <a href="/confidentialite">Confidentialité</a>
+          </nav>
+
           <p className="footer__legal">
             © {annee} {config.nom}. Tous droits réservés
           </p>

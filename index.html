@@ -25,9 +25,21 @@
          l'onglet = première visite sur l'adresse nue : on envoie vers
          le showroom qui liste les 3 sites. S'exécute AVANT React,
          donc sans clignotement. Ne casse pas les liens ?client=… ni
-         la navigation interne (le choix mémorisé fait foi). -->
+         la navigation interne (le choix mémorisé fait foi).
+
+         EXCEPTION : les pages légales doivent rester joignables par un
+         lien direct, dans un onglet neuf, sans ?client=… — la loi exige
+         qu'elles soient « facilement accessibles ». Sans cette
+         dérogation, elles seraient redirigées vers le showroom.
+         Ces chemins sont dupliqués depuis src/config/legal.js : ce
+         script s'exécute avant le bundle, il ne peut rien importer.
+         Les modifier ici ET là-bas. -->
     <script>
       (function () {
+        var CHEMINS_LEGAUX = ["/mentions-legales", "/confidentialite"];
+        var chemin = location.pathname.replace(/\/+$/, "") || "/";
+        if (CHEMINS_LEGAUX.indexOf(chemin) !== -1) return;
+
         var client = new URLSearchParams(location.search).get("client");
         if (!client && !sessionStorage.getItem("client")) {
           location.replace("/demos.html");

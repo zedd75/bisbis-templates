@@ -1,0 +1,152 @@
+/* ============================================================
+   PAGES LÉGALES — partagées par les 3 templates.
+   Les templates ne nomment pas leurs couleurs pareil : Essentiel et
+   Signature utilisent --fond/--texte/--primaire, Prestige utilise
+   --encre/--creme/--or. On enchaîne donc les replis de variables CSS
+   pour que la page s'habille correctement dans les trois cas, sans
+   savoir sur lequel elle tourne.
+   ============================================================ */
+.legal {
+  min-height: 100vh;
+  background: var(--fond, var(--encre, #ffffff));
+  color: var(--texte, var(--creme, #1a1a1a));
+  font-family: var(--policeTexte, system-ui, sans-serif);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.legal__tete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 22px 22px 0;
+}
+
+.legal__retour,
+.legal__theme {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--primaire, var(--or, #444));
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.legal__retour:hover,
+.legal__theme:hover {
+  text-decoration: underline;
+}
+
+.legal__corps {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 28px 22px 80px;
+}
+
+.legal__titre {
+  font-family: var(--policeTitres, Georgia, serif);
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 28px;
+  color: var(--texte, var(--creme, #1a1a1a));
+}
+
+/* Encart « site de démonstration » : informatif, pas alarmant. */
+.legal__encart {
+  border-left: 3px solid var(--primaire, var(--or, #888));
+  padding: 12px 16px;
+  margin: 0 0 28px;
+  background: var(--carte, var(--charcoal, rgba(127, 127, 127, 0.1)));
+  border-radius: 0 8px 8px 0;
+}
+
+/* Alerte « mentions incomplètes » : volontairement voyante, elle ne doit
+   pas rester en ligne. Couleurs en dur : elle doit ressortir quel que
+   soit le thème du client. */
+.legal__alerte {
+  border-left: 3px solid #b45309;
+  background: #fff7ed;
+  color: #7c2d12;
+  padding: 12px 16px;
+  margin: 0 0 28px;
+  border-radius: 0 8px 8px 0;
+}
+.legal__alerte code {
+  font-size: 13px;
+  background: rgba(124, 45, 18, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.legal__bloc {
+  margin: 0 0 34px;
+}
+.legal__bloc h2 {
+  font-family: var(--policeTitres, Georgia, serif);
+  font-size: 20px;
+  margin: 0 0 12px;
+  color: var(--primaire, var(--or, #333));
+}
+.legal__bloc p {
+  margin: 0 0 12px;
+}
+
+.legal__ligne {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 0 0 6px;
+}
+.legal__label {
+  min-width: 190px;
+  opacity: 0.72;
+}
+.legal__valeur {
+  flex: 1;
+  min-width: 200px;
+}
+
+.legal__note {
+  font-size: 14px;
+  opacity: 0.78;
+  margin-top: 10px;
+}
+
+.legal__liste {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.legal__liste li {
+  margin-bottom: 10px;
+}
+
+.legal__liens {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--bordLegal, rgba(127, 127, 127, 0.28));
+}
+.legal__liens a {
+  color: var(--primaire, var(--or, #444));
+  font-size: 15px;
+}
+
+.legal a {
+  color: var(--primaire, var(--or, #444));
+}
+
+@media (min-width: 700px) {
+  .legal__titre {
+    font-size: 40px;
+  }
+  .legal__corps {
+    padding-top: 40px;
+  }
+}

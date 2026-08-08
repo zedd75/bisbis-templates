@@ -527,6 +527,25 @@
 .pfooter__social a:hover {
   color: var(--or);
 }
+.pfooter__legalliens {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.pfooter__legalliens a {
+  /* Pleine opacité du crème, contrairement à .pfooter__legal : ces liens
+     doivent rester lisibles, la loi les veut « facilement accessibles ». */
+  font-size: 13px;
+  color: var(--creme);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pfooter__legalliens a:hover {
+  color: var(--or);
+}
+
 .pfooter__legal {
   font-size: 13px;
   color: rgba(244, 237, 225, 0.5); /* repli */
