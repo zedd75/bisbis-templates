@@ -18,8 +18,10 @@
 //  professionnel avant le premier vrai client.
 // ============================================================
 
-// Hébergeur de tous les sites (Vercel). À publier obligatoirement,
-// quel que soit le régime de l'éditeur.
+// Hébergeur de tous les sites. C'est l'ENTREPRISE QUI HÉBERGE, pas toi :
+// la loi impose de l'identifier pour qu'on puisse la joindre en cas de
+// contenu litigieux. Ne pas remplacer par ton nom — le tien va dans
+// EDITEUR_DEMO juste en dessous.
 export const HEBERGEUR = {
   nom: "Vercel Inc.",
   adresse: "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
@@ -38,8 +40,15 @@ export const HEBERGEUR = {
 //  s'adapte toute seule.
 // ------------------------------------------------------------
 export const EDITEUR_DEMO = {
-  nom: "", // ex. "Prénom Nom" — obligatoire
-  email: "", // ex. "contact@exemple.fr" — obligatoire
+  nom: "Omar Ben achour",
+  // Adresse découpée en deux : elle n'apparaît jamais entière, ni dans ce
+  // dépôt (qui est PUBLIC), ni dans le fichier JavaScript livré au
+  // navigateur. Elle n'est recomposée qu'au moment de l'affichage.
+  // Ça arrête les robots collecteurs qui balaient du texte à la recherche
+  // de « quelquechose@quelquechose ». Ça n'arrête PAS un robot qui exécute
+  // la page — aucune technique ne le fait.
+  // Une adresse en clair reste acceptée : `email: "contact@exemple.fr"`.
+  courriel: { utilisateur: "zedd.paris.pro", domaine: "gmail.com" },
   telephone: "", // facultatif
   // Champs professionnels : laisser vide tant que non immatriculé.
   formeJuridique: "", // ex. "SASU", "Micro-entreprise"

@@ -73,7 +73,11 @@ export default function PageLegale({ config, page, mode, onChangerTheme }) {
               <Ligne label="Nom">{d.editeur.nom}</Ligne>
               <Ligne label="Forme juridique">{d.editeur.formeJuridique}</Ligne>
               <Ligne label="Adresse">{d.editeur.adresse}</Ligne>
-              <Ligne label="Courriel">{d.editeur.email}</Ligne>
+              <Ligne label="Courriel">
+                {d.editeur.email && (
+                  <a href={`mailto:${d.editeur.email}`}>{d.editeur.email}</a>
+                )}
+              </Ligne>
               <Ligne label="Téléphone">{d.editeur.telephone}</Ligne>
               <Ligne label="SIRET">{d.editeur.siret}</Ligne>
               <Ligne label="RCS">{d.editeur.rcs}</Ligne>
@@ -128,7 +132,11 @@ export default function PageLegale({ config, page, mode, onChangerTheme }) {
             <section className="legal__bloc">
               <h2>Responsable du traitement</h2>
               <Ligne label="Nom">{d.editeur.nom}</Ligne>
-              <Ligne label="Courriel">{d.editeur.email}</Ligne>
+              <Ligne label="Courriel">
+                {d.editeur.email && (
+                  <a href={`mailto:${d.editeur.email}`}>{d.editeur.email}</a>
+                )}
+              </Ligne>
             </section>
 
             <section className="legal__bloc">

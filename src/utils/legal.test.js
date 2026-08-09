@@ -2,8 +2,8 @@
 // L'enjeu : ne jamais publier une page qui a l'air en règle sans l'être,
 // et ne jamais présenter une démo fictive comme un vrai établissement.
 import { describe, it, expect } from "vitest";
-import { donneesLegales } from "./legal.js";
-import { HEBERGEUR } from "../config/legal.js";
+import { donneesLegales, assemblerCourriel } from "./legal.js";
+import { EDITEUR_DEMO, HEBERGEUR } from "../config/legal.js";
 
 const clientReel = (editeur = {}) => ({
   nom: "Chez Marcel",
@@ -71,7 +71,9 @@ describe("donneesLegales : regime professionnel", () => {
 
 describe("donneesLegales : mentions manquantes", () => {
   it("signale l'absence de nom", () => {
-    const d = donneesLegales(demo());
+    // Editeur explicitement vide : le test porte sur le COMPORTEMENT, il ne
+    // doit pas dependre de ce qui est reellement rempli dans config/legal.js.
+    const d = donneesLegales({ nom: "X", legal: { editeur: { nom: "", email: "" } } });
     expect(d.complet).toBe(false);
     expect(d.manquants).toContain("le nom de l'éditeur");
   });
@@ -110,6 +112,66 @@ describe("donneesLegales : hebergeur", () => {
     expect(donneesLegales(clientReel()).hebergeur).toBe(HEBERGEUR);
     expect(HEBERGEUR.nom).toBeTruthy();
     expect(HEBERGEUR.adresse).toBeTruthy();
+  });
+
+  it("designe bien l'entreprise qui heberge, pas l'editeur", () => {
+    // Erreur facile a commettre en remplissant le fichier : y mettre son
+    // propre nom. L'hebergeur doit rester identifiable et joignable.
+    expect(HEBERGEUR.nom).toMatch(/vercel/i);
+    expect(HEBERGEUR.adresse).not.toMatch(/@/); // une adresse postale, pas un courriel
+  });
+});
+
+describe("les demos ne doivent jamais etre mises en ligne incompletes", () => {
+  it("EDITEUR_DEMO porte au moins un nom et un moyen de contact", () => {
+    // Garde-fou : si ce test casse, les 3 demos affichent le bandeau orange
+    // « Mentions incompletes » en production.
+    const d = donneesLegales(demo());
+    expect(d.manquants).toEqual([]);
+    expect(d.complet).toBe(true);
+  });
+
+  it("une demo reste signalee comme demonstration", () => {
+    // Meme completes, les mentions doivent dire que l'etablissement est fictif.
+    expect(donneesLegales(demo()).estDemo).toBe(true);
+  });
+});
+
+describe("assemblerCourriel (adresse soustraite aux robots collecteurs)", () => {
+  it("recompose une adresse decoupee en deux morceaux", () => {
+    const e = { courriel: { utilisateur: "contact", domaine: "exemple.fr" } };
+    expect(assemblerCourriel(e)).toBe("contact@exemple.fr");
+  });
+
+  it("accepte aussi une adresse en clair", () => {
+    expect(assemblerCourriel({ email: "contact@exemple.fr" })).toBe("contact@exemple.fr");
+  });
+
+  it("l'adresse en clair a la priorite si les deux sont presentes", () => {
+    const e = { email: "clair@exemple.fr", courriel: { utilisateur: "x", domaine: "y.fr" } };
+    expect(assemblerCourriel(e)).toBe("clair@exemple.fr");
+  });
+
+  it("renvoie une chaine vide si l'adresse est incomplete ou absente", () => {
+    expect(assemblerCourriel({})).toBe("");
+    expect(assemblerCourriel(null)).toBe("");
+    expect(assemblerCourriel({ courriel: { utilisateur: "contact" } })).toBe("");
+    expect(assemblerCourriel({ courriel: { domaine: "exemple.fr" } })).toBe("");
+    expect(assemblerCourriel({ email: "   " })).toBe("");
+  });
+
+  it("le fichier de config ne contient JAMAIS l'adresse en entier", () => {
+    // C'est tout l'interet du decoupage : un robot qui lit le depot public
+    // ou le fichier JavaScript livre ne doit trouver aucune adresse complete.
+    expect(EDITEUR_DEMO.email).toBeUndefined();
+    expect(EDITEUR_DEMO.courriel.utilisateur).not.toContain("@");
+    expect(EDITEUR_DEMO.courriel.domaine).not.toContain("@");
+  });
+
+  it("mais l'adresse est bien recomposee a l'affichage", () => {
+    const email = donneesLegales({ nom: "X" }).editeur.email;
+    expect(email).toContain("@");
+    expect(email.split("@")).toHaveLength(2);
   });
 });
 

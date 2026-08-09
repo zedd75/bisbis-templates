@@ -10,9 +10,28 @@ import { EDITEUR_DEMO, HEBERGEUR } from "../config/legal.js";
 // Un champ rempli = une chaîne non vide une fois détourée.
 const rempli = (v) => typeof v === "string" && v.trim().length > 0;
 
+// Recompose l'adresse de contact au moment de l'affichage.
+// Deux formes acceptées :
+//   - `email: "contact@exemple.fr"` : simple, l'adresse est en clair
+//     dans le code.
+//   - `courriel: { utilisateur, domaine }` : l'adresse n'existe nulle
+//     part en entier avant l'exécution, ce qui la soustrait aux robots
+//     collecteurs qui se contentent de lire du texte.
+export function assemblerCourriel(editeur) {
+  if (rempli(editeur?.email)) return editeur.email.trim();
+  const c = editeur?.courriel;
+  if (rempli(c?.utilisateur) && rempli(c?.domaine)) {
+    return `${c.utilisateur.trim()}@${c.domaine.trim()}`;
+  }
+  return "";
+}
+
 export function donneesLegales(config) {
   const bloc = config?.legal;
   const editeur = bloc?.editeur || EDITEUR_DEMO;
+  // Recomposée ici, à l'exécution : c'est le seul endroit où l'adresse
+  // existe en entier.
+  const email = assemblerCourriel(editeur);
 
   // Sans bloc `legal` nommé dans la config, le site est une démonstration.
   const estDemo = !rempli(bloc?.editeur?.nom);
@@ -26,7 +45,7 @@ export function donneesLegales(config) {
   // règle sans l'être.
   const manquants = [];
   if (!rempli(editeur.nom)) manquants.push("le nom de l'éditeur");
-  if (!rempli(editeur.email) && !rempli(editeur.telephone)) {
+  if (!rempli(email) && !rempli(editeur.telephone)) {
     manquants.push("un moyen de contact (courriel ou téléphone)");
   }
   if (estProfessionnel && !rempli(editeur.adresse)) {
@@ -40,6 +59,7 @@ export function donneesLegales(config) {
     manquants,
     editeur: {
       ...editeur,
+      email,
       // À défaut de directeur de la publication désigné, c'est l'éditeur.
       directeurPublication: rempli(editeur.directeurPublication)
         ? editeur.directeurPublication
