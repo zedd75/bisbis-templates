@@ -491,6 +491,12 @@
   border-radius: 4px;
   filter: grayscale(0.3);
 }
+/* L'aperçu épouse la hauteur et les angles de la carte Prestige, pour que
+   rien ne bouge quand le visiteur la charge. */
+.pinfos__map .cartepreview {
+  min-height: 320px;
+  border-radius: 4px;
+}
 
 /* ============================================================
    PIED DE PAGE

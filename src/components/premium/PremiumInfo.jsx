@@ -1,5 +1,7 @@
 // Infos pratiques Premium : horaires, adresse, métro + carte Google.
+// La carte n'est chargée qu'au clic du visiteur (voir CarteGoogle).
 import Reveal from "../shared/Reveal.jsx";
+import CarteGoogle from "../shared/CarteGoogle.jsx";
 
 export default function PremiumInfo({ config, t }) {
   const { infos } = config;
@@ -26,14 +28,11 @@ export default function PremiumInfo({ config, t }) {
           <p className="pinfos__value">{infos.metro}</p>
         </div>
 
-        <div className="pinfos__map">
-          <iframe
-            title="Localisation"
-            src={infos.googleMapsEmbed}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
+        <CarteGoogle
+          embedUrl={infos.googleMapsEmbed}
+          adresse={infos.adresse}
+          classe="pinfos__map"
+        />
       </div>
     </section>
   );

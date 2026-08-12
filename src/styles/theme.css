@@ -259,6 +259,123 @@ h3 {
   border-radius: 12px;
 }
 
+/* ------------------------------------------------------------
+   APERÇU DE CARTE (avant chargement de Google)
+   Partagé par les 3 templates : les couleurs sont donc lues avec des
+   chaînes de repli, Prestige ne nommant pas ses variables pareil.
+   Même hauteur que l'iframe, pour que la page ne saute pas au clic.
+   ------------------------------------------------------------ */
+.cartepreview {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  border-radius: 12px;
+  background: var(--carte, var(--charcoal, rgba(127, 127, 127, 0.08)));
+  /* Le repère s'affiche selon la largeur de CE bloc, pas celle de la
+     fenêtre : la carte occupe une colonne, elle peut être étroite sur un
+     grand écran. Une media query se trompait de cible. */
+  container-type: inline-size;
+}
+
+/* --- Le plan stylisé, en fond --- */
+.cartepreview__plan {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.cartepreview__blocs rect {
+  fill: currentColor;
+  opacity: 0.055;
+}
+.cartepreview__rues path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  opacity: 0.11;
+}
+/* Repère posé dans le coin haut-droit, hors de portée de la fiche centrée.
+   Masqué tant que le bloc est trop étroit pour lui laisser la place :
+   la fiche fait 380px au plus, il lui faut donc ~150px de marge. */
+.cartepreview__repere {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 54px;
+  height: 54px;
+  display: none;
+}
+@container (min-width: 530px) {
+  .cartepreview__repere {
+    display: block;
+  }
+}
+.cartepreview__repere path {
+  fill: var(--primaire, var(--or, #2f2f2f));
+}
+.cartepreview__halo {
+  fill: var(--primaire, var(--or, #2f2f2f));
+  opacity: 0.16;
+}
+.cartepreview__pointe {
+  fill: var(--carte, var(--charcoal, #ffffff));
+}
+
+/* --- La fiche posée par-dessus ---
+   Volontairement OPAQUE : c'est ce qui garantit le contraste du texte quel
+   que soit le dessin en dessous. Le plan l'encadre. */
+.cartepreview__contenu {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 9px;
+  max-width: 380px;
+  padding: 24px 26px;
+  border-radius: 10px;
+  background: var(--carte, var(--charcoal, #ffffff));
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+.cartepreview__adresse {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.cartepreview__bouton {
+  margin-top: 2px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 11px 24px;
+  border: 0;
+  border-radius: 8px;
+  /* --primaire sert de FOND ici : le texte doit être sa contre-couleur,
+     jamais --primaire lui-même (piège du double rôle). */
+  background: var(--primaire, var(--or, #2f2f2f));
+  color: var(--surPrimaire, var(--encre, #ffffff));
+}
+.cartepreview__bouton:hover {
+  opacity: 0.9;
+}
+.cartepreview__lien {
+  font-size: 13px;
+  color: inherit;
+}
+.cartepreview__note {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.72;
+}
+
 /* ============================================================
    PIED DE PAGE
    ============================================================ */

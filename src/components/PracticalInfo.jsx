@@ -1,4 +1,7 @@
 // Infos pratiques : horaires, coordonnées cliquables et carte Google.
+// La carte n'est chargée qu'au clic du visiteur (voir CarteGoogle).
+import CarteGoogle from "./shared/CarteGoogle.jsx";
+
 export default function PracticalInfo({ config }) {
   const { infos } = config;
   const tel = infos.telephone.replace(/\s/g, "");
@@ -31,16 +34,11 @@ export default function PracticalInfo({ config }) {
           )}
         </div>
 
-        {infos.googleMapsEmbed && (
-          <div className="infos__map">
-            <iframe
-              title="Localisation du restaurant"
-              src={infos.googleMapsEmbed}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        )}
+        <CarteGoogle
+          embedUrl={infos.googleMapsEmbed}
+          adresse={infos.adresse}
+          classe="infos__map"
+        />
       </div>
     </section>
   );
