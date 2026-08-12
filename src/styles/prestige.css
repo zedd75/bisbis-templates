@@ -481,6 +481,25 @@
   color: rgba(244, 237, 225, 0.85); /* repli */
   color: rgb(from var(--creme) r g b / 0.85);
 }
+/* Horaires jour par jour, pilotés depuis CometStudio. Deux colonnes :
+   le jour à gauche, les créneaux à droite, comme sur une ardoise. */
+.pinfos__horaires {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  max-width: 380px;
+  color: rgba(244, 237, 225, 0.85); /* repli */
+  color: rgb(from var(--creme) r g b / 0.85);
+}
+.pinfos__horaires li {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 3px 0;
+}
+.pinfos__horaires li span:first-child {
+  opacity: 0.72;
+}
 .pinfos__value a:hover {
   color: var(--or);
 }

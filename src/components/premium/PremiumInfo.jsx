@@ -16,7 +16,23 @@ export default function PremiumInfo({ config, t }) {
       <div className="pinfos__grid">
         <div className="pinfos__col">
           <p className="psurtitre">{t.labelHoraires}</p>
-          <p className="pinfos__value">{infos.horaires}</p>
+          {/* Les horaires viennent de CometStudio sous forme de liste
+              jour par jour. On les affiche telles quelles : les écraser
+              sur une ligne perdait « Lundi : fermé », que le client a
+              justement besoin de connaître. Une chaîne reste acceptée,
+              pour les configs qui n'ont pas encore basculé. */}
+          {Array.isArray(infos.horaires) ? (
+            <ul className="pinfos__horaires">
+              {infos.horaires.map((h) => (
+                <li key={h.jour}>
+                  <span>{h.jour}</span>
+                  <span>{h.heures}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="pinfos__value">{infos.horaires}</p>
+          )}
 
           <p className="psurtitre">{t.labelAdresse}</p>
           <p className="pinfos__value">{infos.adresse}</p>
