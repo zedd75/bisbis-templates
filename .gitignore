@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets : jamais dans git.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
