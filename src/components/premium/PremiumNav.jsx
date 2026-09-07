@@ -6,7 +6,8 @@
 // - sur mobile : bouton burger qui ouvre un panneau de liens
 // - bouton Réserver (externe) + bascule de langue FR / EN
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import LienInterne from "../shared/LienInterne.jsx";
 import slugify from "../../utils/slugify.js";
 import BasculeTheme from "../shared/BasculeTheme.jsx";
 
@@ -46,16 +47,16 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
   return (
     <header className={`pnav ${solide ? "pnav--solid" : ""}`}>
       <div className="pnav__inner">
-        <Link to="/" className="pnav__brand">
+        <LienInterne to="/" className="pnav__brand">
           {config.logo ? (
             <img src={config.logo} alt={config.nom} className="pnav__logo" />
           ) : (
             config.nom
           )}
-        </Link>
+        </LienInterne>
 
         <nav className="pnav__links">
-          <Link to="/histoire">{t.nav.histoire}</Link>
+          <LienInterne to="/histoire">{t.nav.histoire}</LienInterne>
 
           {/* --- Menu déroulant "La carte" ---
               Ouvert au survol (souris) OU au focus clavier ; se
@@ -72,7 +73,7 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
               }
             }}
           >
-            <Link
+            <LienInterne
               to="/carte"
               className="pdrop__trigger"
               onClick={() => setCarteOuverte(false)}
@@ -81,21 +82,21 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
               <span className="pdrop__chevron" aria-hidden="true">
                 ▾
               </span>
-            </Link>
+            </LienInterne>
             <div className="pdrop__menu">
               {entreesCarte.map((entree) => (
-                <Link
+                <LienInterne
                   key={entree.ancre}
                   to={`/carte#${entree.ancre}`}
                   onClick={() => setCarteOuverte(false)}
                 >
                   {entree.nom}
-                </Link>
+                </LienInterne>
               ))}
             </div>
           </div>
 
-          <Link to="/galerie">{t.nav.galerie}</Link>
+          <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
         </nav>
 
         <div className="pnav__actions">
@@ -130,9 +131,9 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
       {/* --- Panneau mobile --- */}
       {burgerOuvert && (
         <nav className="pnav__mobile">
-          <Link to="/histoire">{t.nav.histoire}</Link>
-          <Link to="/carte">{t.nav.carte}</Link>
-          <Link to="/galerie">{t.nav.galerie}</Link>
+          <LienInterne to="/histoire">{t.nav.histoire}</LienInterne>
+          <LienInterne to="/carte">{t.nav.carte}</LienInterne>
+          <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
           <a href={config.reservationUrl} target="_blank" rel="noreferrer">
             {t.nav.reserver}
           </a>

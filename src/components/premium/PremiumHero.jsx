@@ -1,7 +1,7 @@
 // Hero plein écran : label doré, grand titre serif, filet + losange,
 // sous-titre en italique, deux boutons. L'entrée est animée en CSS
 // (classe phero__content--enter).
-import { Link } from "react-router-dom";
+import LienInterne from "../shared/LienInterne.jsx";
 
 export default function PremiumHero({ config, t }) {
   return (
@@ -32,9 +32,9 @@ export default function PremiumHero({ config, t }) {
           >
             {t.hero.cta1}
           </a>
-          <Link to="/carte" className="pbtn pbtn--outline">
+          <LienInterne to="/carte" className="pbtn pbtn--outline">
             {t.hero.cta2}
-          </Link>
+          </LienInterne>
         </div>
       </div>
     </section>
