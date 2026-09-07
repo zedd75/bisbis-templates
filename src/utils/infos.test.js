@@ -48,8 +48,19 @@ describe("appliquerInfos : remplacement", () => {
     expect(out.infos.email).toBe("bonjour@resto.fr");
   });
 
-  it("garde la valeur d'origine quand le champ est vide en base", () => {
+  // CHANGEMENT DE REGLE ASSUME (audit A06). Ces trois tests decrivaient
+  // l'ancien comportement : un champ vide en base rendait la main a la
+  // config, donc a la valeur de demonstration. Un restaurateur qui effacait
+  // son email le voyait reapparaitre, et de vrais clients ecrivaient a une
+  // fausse adresse. Un champ vide est desormais respecte.
+  it("respecte un champ VIDE : le restaurateur a voulu le retirer", () => {
     const out = appliquerInfos(configTableau(), enBase({ telephone: "   ", email: "" }));
+    expect(out.infos.telephone).toBe("");
+    expect(out.infos.email).toBe("");
+  });
+
+  it("garde la valeur d'origine quand la colonne est ABSENTE, pas vide", () => {
+    const out = appliquerInfos(configTableau(), enBase({ telephone: null }));
     expect(out.infos.telephone).toBe("01 00 00 00 00");
   });
 
@@ -86,8 +97,13 @@ describe("appliquerInfos : horaires", () => {
     expect(out.infos.horaires.find((h) => h.jour === "Lundi").heures).toBe("Fermé");
   });
 
-  it("garde les horaires d'origine si la base n'en a aucune", () => {
+  it("respecte une liste d'horaires VIDE", () => {
     const out = appliquerInfos(configTexte(), enBase({ horaires: [] }));
+    expect(out.infos.horaires).toEqual([]);
+  });
+
+  it("garde les horaires d'origine si la colonne est ABSENTE", () => {
+    const out = appliquerInfos(configTexte(), enBase({ horaires: null }));
     expect(out.infos.horaires).toBe("Lun – Dim · 08h00 – 02h00");
   });
 });
@@ -124,8 +140,13 @@ describe("appliquerInfos : lien de reservation", () => {
     );
   });
 
-  it("garde l'ancien lien si la base ne le renseigne pas", () => {
+  it("retire le lien quand le restaurateur l'a vide", () => {
     const out = appliquerInfos(configTexte(), enBase({ reservation_url: "" }));
+    expect(out.reservationUrl).toBe("");
+  });
+
+  it("garde l'ancien lien si la colonne est ABSENTE", () => {
+    const out = appliquerInfos(configTexte(), enBase({ reservation_url: null }));
     expect(out.reservationUrl).toBe("https://ancien-zenchef.com");
   });
 });

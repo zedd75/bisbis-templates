@@ -28,14 +28,28 @@ export function appliquerInfos(config, infos) {
   // La liste jour par jour est transmise TELLE QUELLE aux trois templates :
   // Prestige sait désormais l'afficher (il l'écrasait sur une ligne, ce qui
   // faisait disparaître les jours de fermeture).
-  const horaires = infos.horaires?.length
+  // Même règle pour les horaires : une liste vide volontaire est respectée,
+  // seule une colonne absente rend la main à la config.
+  const horaires = Array.isArray(infos.horaires)
     ? infos.horaires
     : config.infos?.horaires;
 
-  // Chaque champ vide en base laisse la valeur d'origine : une démo reste
-  // présentable tant que le restaurateur n'a rien saisi.
-  const garde = (valeur, origine) =>
-    typeof valeur === "string" && valeur.trim() ? valeur.trim() : origine;
+  // ABSENT n'est pas VIDE.
+  //
+  // Cette fonction remettait la valeur de la config dès qu'un champ était
+  // vide en base. Un restaurateur qui effaçait son email voyait donc
+  // réapparaître celui de la démonstration, en croyant l'avoir retiré. Sur
+  // un vrai site, cela envoie de vrais clients vers un faux numéro ou une
+  // fausse adresse : c'est pire qu'une absence.
+  //
+  // La règle est donc : la ligne existe, elle fait foi. Seule une colonne
+  // jamais renseignée (null) laisse la place à la config. La lecture ratée,
+  // elle, est déjà traitée plus haut — le hook renvoie `infos` absent, et
+  // un site sans rien serait pire qu'un site un peu daté.
+  const garde = (valeur, origine) => {
+    if (valeur === null || valeur === undefined) return origine;
+    return typeof valeur === "string" ? valeur.trim() : valeur;
+  };
 
   const adresse = garde(infos.adresse, config.infos?.adresse);
   // Prestige lit le lien de réservation à la RACINE de la config
