@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { SUPABASE_URL, SUPABASE_KEY } from "../lib/supabase.js";
 import slugify from "../utils/slugify.js";
+import { lireCollectionSupabase } from "../lib/lectureSupabase.js";
 
 // Lignes plates (déjà triées par "ordre") -> onglets imbriqués.
 // "notes" = mentions saisies dans CometStudio, indexées par NOM de menu
@@ -52,14 +53,20 @@ export default function useMenuSupabase(restaurantId) {
     const entetes = { apikey: SUPABASE_KEY };
     const urlPlats =
       `${SUPABASE_URL}/rest/v1/plats?restaurant_id=eq.${rid}` +
-      `&select=menu,categorie,nom,description,prix,ordre&order=ordre`;
+      `&select=id,menu,categorie,nom,description,prix,ordre&order=ordre,id`;
     const urlResto =
       `${SUPABASE_URL}/rest/v1/restaurants?id=eq.${rid}` +
       `&select=notes_onglets,traductions`;
+    const urlRevision =
+      `${SUPABASE_URL}/rest/v1/restaurants?id=eq.${rid}&select=revision`;
+
+    const lireRevision = () => fetch(urlRevision, { headers: entetes, cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
+      .then((lignes) => lignes?.[0]?.revision);
 
     // Mentions et traductions sont accessoires : si leur lecture échoue, le
     // menu doit quand même s'afficher. On les isole dans leur propre repli.
-    const lireResto = fetch(urlResto, { headers: entetes, cache: "no-store" })
+    const lireResto = () => fetch(urlResto, { headers: entetes, cache: "no-store" })
       .then((r) => (r.ok ? r.json() : []))
       .then((lignes) => ({
         notes: lignes?.[0]?.notes_onglets || {},
@@ -67,12 +74,14 @@ export default function useMenuSupabase(restaurantId) {
       }))
       .catch(() => ({ notes: {}, traductions: {} }));
 
-    const lirePlats = fetch(urlPlats, { headers: entetes, cache: "no-store" }).then(
-      (r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status)))
-    );
-
-    Promise.all([lirePlats, lireResto])
-      .then(([rows, extra]) => {
+    lireCollectionSupabase(
+      urlPlats,
+      { headers: entetes, cache: "no-store" },
+      fetch,
+      lireRevision,
+      lireResto,
+    )
+      .then(({ lignes: rows, associe: extra }) => {
         if (annule) return;
         setOnglets(rows.length ? ongletsDepuisRows(rows, extra.notes) : null);
         setTraductions(extra.traductions);

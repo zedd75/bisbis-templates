@@ -6,6 +6,7 @@
 // restaurateur depuis sa fiche Google. Le site ne fait que les afficher.
 import { useEffect, useState } from "react";
 import { SUPABASE_URL, SUPABASE_KEY } from "../lib/supabase.js";
+import { lireCollectionSupabase } from "../lib/lectureSupabase.js";
 
 export default function useAvisSupabase(restaurantId) {
   const [avis, setAvis] = useState(null);
@@ -19,10 +20,16 @@ export default function useAvisSupabase(restaurantId) {
     const url =
       `${SUPABASE_URL}/rest/v1/avis` +
       `?restaurant_id=eq.${encodeURIComponent(restaurantId)}` +
-      `&select=nom,note,texte`;
-
-    fetch(url, { headers: { apikey: SUPABASE_KEY }, cache: "no-store" })
+      `&select=id,nom,note,texte&order=id`;
+    const urlRevision =
+      `${SUPABASE_URL}/rest/v1/restaurants?id=eq.${encodeURIComponent(restaurantId)}` +
+      `&select=revision`;
+    const options = { headers: { apikey: SUPABASE_KEY }, cache: "no-store" };
+    const lireRevision = () => fetch(urlRevision, options)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
+      .then((lignes) => lignes?.[0]?.revision);
+
+    lireCollectionSupabase(url, options, fetch, lireRevision)
       .then((lignes) => {
         if (!annule) setAvis(lignes.length ? lignes : null);
       })

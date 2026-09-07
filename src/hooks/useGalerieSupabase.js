@@ -7,6 +7,7 @@
 // son comportement statique de config).
 import { useEffect, useState } from "react";
 import { SUPABASE_URL, SUPABASE_KEY } from "../lib/supabase.js";
+import { lireCollectionSupabase, lireVersionStable } from "../lib/lectureSupabase.js";
 
 export default function useGalerieSupabase(restaurantId) {
   const [donnees, setDonnees] = useState({ sections: null, images: null, capacites: null });
@@ -24,10 +25,14 @@ export default function useGalerieSupabase(restaurantId) {
       );
     const rid = encodeURIComponent(restaurantId);
 
-    Promise.all([
-      q(`/galerie?restaurant_id=eq.${rid}&select=url,legende,position,section_id,ordre&order=ordre`),
+    const lireRevision = () => q(`/restaurants?id=eq.${rid}&select=revision`)
+      .then((restos) => restos?.[0]?.revision);
+
+    lireVersionStable(lireRevision, () => Promise.all([
+      lireCollectionSupabase(`${base}/galerie?restaurant_id=eq.${rid}&select=id,url,legende,position,section_id,ordre&order=ordre,id`,
+        { headers: { apikey: SUPABASE_KEY }, cache: "no-store" }),
       q(`/restaurants?id=eq.${rid}&select=galerie_sections,images,site_sections`),
-    ])
+    ]))
       .then(([photos, restos]) => {
         if (annule) return;
         const defs = (restos[0] && restos[0].galerie_sections) || [];
