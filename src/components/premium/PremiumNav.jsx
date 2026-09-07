@@ -8,6 +8,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import LienInterne from "../shared/LienInterne.jsx";
+import { capaciteActive } from "../../utils/capacites.js";
 import slugify from "../../utils/slugify.js";
 import BasculeTheme from "../shared/BasculeTheme.jsx";
 
@@ -43,6 +44,18 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
     })),
     ...autresMenus.map((menu) => ({ nom: menu.nom, ancre: menu.id })),
   ];
+
+  // Une capacité ABSENTE de la config vaut active : les configurations
+  // écrites avant les interrupteurs ne doivent pas perdre leur navigation.
+  // Seul un `false` explicite masque — et c'est ce que CometStudio écrit.
+  //
+  // Sans ce filtre, la barre affichait la galerie, la bascule de langue et
+  // le bouton Réserver même quand l'offre du restaurant ne les comprend pas.
+  // On vendait une différence entre formules que le rendu ignorait.
+  const actif = (cle) => capaciteActive(config, cle);
+  // Un lien de réservation vide donnerait `href=""`, c'est-à-dire un lien
+  // vers la page courante : un bouton qui ne fait rien.
+  const reservationVisible = actif("reservation") && !!config.reservationUrl;
 
   return (
     <header className={`pnav ${solide ? "pnav--solid" : ""}`}>
@@ -96,26 +109,32 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
             </div>
           </div>
 
-          <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
+          {actif("galerie") && (
+            <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
+          )}
         </nav>
 
         <div className="pnav__actions">
           <BasculeTheme config={config} mode={mode} onChanger={onChangerTheme} />
-          <button
-            className="pnav__lang"
-            onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-            aria-label="Changer de langue"
-          >
-            {lang === "fr" ? "EN" : "FR"}
-          </button>
-          <a
-            href={config.reservationUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="pbtn pbtn--gold"
-          >
-            {t.nav.reserver}
-          </a>
+          {actif("bilingue") && (
+            <button
+              className="pnav__lang"
+              onClick={() => setLang(lang === "fr" ? "en" : "fr")}
+              aria-label="Changer de langue"
+            >
+              {lang === "fr" ? "EN" : "FR"}
+            </button>
+          )}
+          {reservationVisible && (
+            <a
+              href={config.reservationUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="pbtn pbtn--gold"
+            >
+              {t.nav.reserver}
+            </a>
+          )}
           {/* --- Burger (mobile uniquement, voir prestige.css) --- */}
           <button
             className="pnav__burger"
@@ -133,10 +152,14 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
         <nav className="pnav__mobile">
           <LienInterne to="/histoire">{t.nav.histoire}</LienInterne>
           <LienInterne to="/carte">{t.nav.carte}</LienInterne>
-          <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
-          <a href={config.reservationUrl} target="_blank" rel="noreferrer">
-            {t.nav.reserver}
-          </a>
+          {actif("galerie") && (
+            <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
+          )}
+          {reservationVisible && (
+            <a href={config.reservationUrl} target="_blank" rel="noreferrer">
+              {t.nav.reserver}
+            </a>
+          )}
         </nav>
       )}
     </header>

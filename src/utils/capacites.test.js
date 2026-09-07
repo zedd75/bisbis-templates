@@ -1,7 +1,7 @@
 // Tests de la fusion des fonctionnalités pilotées depuis CometStudio
 // (restaurants.site_sections) dans config.sections.
 import { describe, it, expect } from "vitest";
-import { appliquerCapacites } from "./capacites.js";
+import { appliquerCapacites, capaciteActive } from "./capacites.js";
 
 describe("appliquerCapacites", () => {
   it("fusionne les capacités dans config.sections (les distantes gagnent)", () => {
@@ -26,5 +26,21 @@ describe("appliquerCapacites", () => {
     const config = { sections: { apropos: true } };
     appliquerCapacites(config, { theme: true });
     expect(config.sections).toEqual({ apropos: true });
+  });
+});
+
+describe("capaciteActive", () => {
+  it("masque sur un false EXPLICITE, seul cas de masquage", () => {
+    expect(capaciteActive({ sections: { galerie: false } }, "galerie")).toBe(false);
+  });
+
+  it("affiche quand la capacite est active", () => {
+    expect(capaciteActive({ sections: { galerie: true } }, "galerie")).toBe(true);
+  });
+
+  it("affiche quand la cle est ABSENTE : une vieille config garde sa navigation", () => {
+    expect(capaciteActive({ sections: { menu: true } }, "galerie")).toBe(true);
+    expect(capaciteActive({}, "galerie")).toBe(true);
+    expect(capaciteActive(null, "galerie")).toBe(true);
   });
 });
