@@ -37,6 +37,14 @@ dans CometStudio avec la session administrateur de recette.
 La vérification initiale a reproduit le refus d'intégration des trois parcours.
 Un résultat de compilation réussi ne prouve pas que l'aperçu fonctionne.
 
+Attention au cache après modification des seuls en-têtes : le 21 septembre,
+le document gardait son ancien ETag. Vercel répondait 304 sans CSP et le
+navigateur conservait son ancienne interdiction pour `/carte?client=doric`.
+Les pages non visitées fonctionnaient déjà. Le marqueur de politique dans
+`index.html` renouvelle le document (donc l'ETag) en même temps que la CSP.
+Lors d'une future modification de cette politique, renouveler aussi ce
+marqueur et tester avec l'ETag précédent, pas seulement avec un navigateur neuf.
+
 ## Retour arrière
 
 Dans Vercel, projet **bisbis-templates**, Deployment Protection → Deployment
