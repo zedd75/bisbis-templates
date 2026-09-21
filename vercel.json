@@ -6,10 +6,6 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self' https://comet-studio.vercel.app"
-        },
-        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
@@ -22,6 +18,28 @@
           "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
         }
       ]
+    },
+    {
+      "source": "/(.*)",
+      "missing": [{
+        "type": "host",
+        "value": { "eq": "bisbis-templates-git-feat-is-d3f37c-zeddparispro-3146s-projects.vercel.app" }
+      }],
+      "headers": [{
+        "key": "Content-Security-Policy",
+        "value": "frame-ancestors 'self' https://comet-studio.vercel.app"
+      }]
+    },
+    {
+      "source": "/(.*)",
+      "has": [{
+        "type": "host",
+        "value": { "eq": "bisbis-templates-git-feat-is-d3f37c-zeddparispro-3146s-projects.vercel.app" }
+      }],
+      "headers": [{
+        "key": "Content-Security-Policy",
+        "value": "frame-ancestors 'self' https://comet-studio-git-feat-invita-e9b15a-zeddparispro-3146s-projects.vercel.app"
+      }]
     }
   ]
 }
