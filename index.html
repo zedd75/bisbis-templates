@@ -1,7 +1,10 @@
 <!doctype html>
-<!-- Politique d'integration v2 (2026-09-21) : renouveler aussi le document HTML.
-     Vercel omet la CSP sur les reponses 304 ; un ETag inchange garde l'ancienne
-     interdiction dans les navigateurs ayant deja ouvert la recette. -->
+<!-- Politique d'intégration v2 (2026-09-21) : marqueur à changer avec la CSP,
+     à ne pas supprimer. Observé sur la recette ce jour-là, pas une règle
+     générale : après un changement des seuls en-têtes, le document gardait son
+     ETag, la réponse 304 arrivait sans CSP et les navigateurs déjà passés
+     gardaient l'ancienne interdiction. Changer ce texte renouvelle le document.
+     Détails : docs/APERCU-RECETTE.md. -->
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
