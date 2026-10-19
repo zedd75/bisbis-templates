@@ -12,7 +12,7 @@ const config = {
   nom: "${d.nom}",
   logo: null,
 
-  // Relie ce site a CometStudio. SANS cette ligne, le restaurateur
+  // Relie ce site au back-office. SANS cette ligne, le restaurateur
   // modifierait dans le vide : ses changements ne remonteraient jamais.
   restaurantId: "${d.restaurantId}",
 
@@ -32,7 +32,7 @@ ${blocTheme(d)}
     image: "${placeholder(d, "Photo de la salle")}",
   },
 
-  // Carte de repli. La vraie carte vient de CometStudio.
+  // Carte de repli. La vraie carte vient du back-office.
   menu: {
     titre: "La carte",
     categories: [

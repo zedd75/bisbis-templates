@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { configurationSupabase, verifierApercu, PRODUCTION } from "./environnement.js";
 
 const recette = {
-  VITE_SUPABASE_URL: "https://comet-recette.supabase.co",
+  VITE_SUPABASE_URL: "https://projet-recette.supabase.co",
   VITE_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_recette",
 };
 describe("Isolation de la base de test", () => {
@@ -28,7 +28,7 @@ it("refuse un build de recette publie dans l'environnement production Vercel", (
   });
   it("utilise la recette configuree pour les essais", () => {
     expect(configurationSupabase({ command: "serve", env: recette })).toEqual({
-      url: "https://comet-recette.supabase.co", key: "sb_publishable_recette",
+      url: "https://projet-recette.supabase.co", key: "sb_publishable_recette",
     });
   });
   it("ne redirige pas un deploiement production vers une recette locale", () => {
@@ -38,15 +38,15 @@ it("refuse un build de recette publie dans l'environnement production Vercel", (
     expect(configurationSupabase({ command: "build", mode: "production" })).toEqual(PRODUCTION);
   });
   it("permet un build de recette isole", () => {
-    expect(configurationSupabase({ command: "build", mode: "recette", env: recette }).url).toBe("https://comet-recette.supabase.co");
+    expect(configurationSupabase({ command: "build", mode: "recette", env: recette }).url).toBe("https://projet-recette.supabase.co");
   });
   it("utilise une origine non routable pour les tests unitaires", () => {
-    expect(configurationSupabase({ command: "serve", mode: "test" }).url).toBe("https://comet-tests.invalid");
+    expect(configurationSupabase({ command: "serve", mode: "test" }).url).toBe("https://vitrines-tests.invalid");
   });
   it.each(["sb_secret_interdit", "eyJhbGci.secret.signature", ""])("refuse une cle non publishable : %s", (key) => {
     expect(() => configurationSupabase({ command: "serve", env: { ...recette, VITE_SUPABASE_PUBLISHABLE_KEY: key } })).toThrow(/publishable/);
   });
-  it.each(["http://comet-recette.supabase.co", "https://comet-recette.supabase.co/path", "https://user:pass@comet-recette.supabase.co", "https://comet-recette.supabase.co?x=y"])("refuse une origine ambigue : %s", (url) => {
+  it.each(["http://projet-recette.supabase.co", "https://projet-recette.supabase.co/path", "https://user:pass@projet-recette.supabase.co", "https://projet-recette.supabase.co?x=y"])("refuse une origine ambigue : %s", (url) => {
     expect(() => configurationSupabase({ command: "serve", env: { ...recette, VITE_SUPABASE_URL: url } })).toThrow(/URL/);
   });
   it("refuse la production avec une casse ou barre finale differente", () => {

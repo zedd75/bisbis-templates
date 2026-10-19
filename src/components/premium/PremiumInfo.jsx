@@ -16,7 +16,7 @@ export default function PremiumInfo({ config, t }) {
       <div className="pinfos__grid">
         <div className="pinfos__col">
           <p className="psurtitre">{t.labelHoraires}</p>
-          {/* Les horaires viennent de CometStudio sous forme de liste
+          {/* Les horaires viennent du back-office sous forme de liste
               jour par jour. On les affiche telles quelles : les écraser
               sur une ligne perdait « Lundi : fermé », que le client a
               justement besoin de connaître. Une chaîne reste acceptée,

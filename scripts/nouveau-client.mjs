@@ -3,11 +3,11 @@
 //  Lancez :  npm run nouveau-client
 //
 //  ORDRE DES OPERATIONS, important :
-//    1. Creez d'abord le restaurant DANS COMETSTUDIO (console admin,
+//    1. Creez d'abord le restaurant DANS LE BACK-OFFICE (console admin,
 //       « + Ajouter un restaurant »). Il vous donne un IDENTIFIANT.
 //    2. Lancez ce script et donnez-lui cet identifiant.
 //
-//  Pourquoi cet ordre : l'identifiant est genere par CometStudio et
+//  Pourquoi cet ordre : l'identifiant est genere par le back-office et
 //  comporte un suffixe imprevisible. Le deviner produirait un site
 //  DECONNECTE — le restaurateur modifierait dans le vide.
 //
@@ -57,12 +57,12 @@ const slugifier = (t) =>
 console.log("\n===============================================");
 console.log("  NOUVEAU CLIENT — generateur de site vitrine");
 console.log("===============================================");
-console.log("\n⚠️  Creez d'abord le restaurant dans CometStudio,");
+console.log("\n⚠️  Creez d'abord le restaurant dans le back-office,");
 console.log("    puis reportez ici l'identifiant qu'il affiche.\n");
 
 const nom = await demander("Nom du restaurant", "Chez Fatou");
 const restaurantId = await demander(
-  "Identifiant CometStudio (obligatoire)",
+  "Identifiant du back-office (obligatoire)",
   ""
 );
 const slug = slugifier(
@@ -87,10 +87,10 @@ const echec = (m) => {
 
 if (!restaurantId) {
   echec(
-    "L'identifiant CometStudio est obligatoire.\n" +
+    "L'identifiant du back-office est obligatoire.\n" +
       "   Sans lui, le site serait DECONNECTE du back-office :\n" +
       "   le restaurateur modifierait sans qu'il ne se passe rien.\n" +
-      "   Creez le restaurant dans CometStudio, puis relancez."
+      "   Creez le restaurant dans le back-office, puis relancez."
   );
 }
 const modele = MODELES[template];
@@ -136,9 +136,9 @@ writeFileSync(cheminApp, appModifie, "utf8");
 console.log(`\n✅ Offre ${modele.offre} — client « ${nom} » cree.`);
 console.log(`   • src/config/${slug}.config.js`);
 console.log(`   • src/App.jsx mis a jour (import + registre CLIENTS)`);
-console.log(`   • relie a CometStudio via restaurantId: "${restaurantId}"`);
+console.log(`   • relie au back-office via restaurantId: "${restaurantId}"`);
 console.log(`\nOuvrez :  http://localhost:5173/?client=${slug}`);
 console.log("\nIl reste a faire, a la main :");
 console.log("   1. Creer le COMPTE du restaurateur (Supabase > Authentication)");
 console.log("   2. Remplacer les photos et les textes marques « A renseigner »");
-console.log("   3. Renseigner les horaires dans CometStudio\n");
+console.log("   3. Renseigner les horaires dans le back-office\n");

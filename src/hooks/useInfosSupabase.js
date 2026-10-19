@@ -1,8 +1,8 @@
 // Charge les infos pratiques d'un restaurant depuis Supabase (la base
-// pilotée par CometStudio) : adresse, téléphone, email, lien de
+// pilotée par le back-office) : adresse, téléphone, email, lien de
 // réservation, horaires.
 //
-// Sans ce branchement, le module « Infos & horaires » de CometStudio
+// Sans ce branchement, le module « Infos & horaires » du back-office
 // écrivait dans le vide : les sites affichaient les valeurs figées dans
 // leur fichier de config. Or les horaires sont l'information la plus
 // souvent modifiée d'un site de restaurant.

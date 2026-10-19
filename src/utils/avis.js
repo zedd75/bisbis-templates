@@ -1,4 +1,4 @@
-// Applique les avis pilotés depuis CometStudio à la config du site.
+// Applique les avis pilotés depuis le back-office à la config du site.
 //
 // Les deux templates concernés (Signature et Prestige) lisent la même liste
 // config.avis.items ; seul le titre de la section diffère : Signature le prend

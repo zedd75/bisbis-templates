@@ -3,7 +3,7 @@
 // se souvient du choix du visiteur sur SON appareil (localStorage).
 import { useEffect, useState } from "react";
 
-const CLE = "cometstudio.theme";
+const CLE = "vitrine.theme";
 
 export default function useTheme(config) {
   const defaut = config.themeDefaut === "sombre" ? "sombre" : "clair";

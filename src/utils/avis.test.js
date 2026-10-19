@@ -1,4 +1,4 @@
-// Tests de l'application des avis pilotés depuis CometStudio.
+// Tests de l'application des avis pilotés depuis le back-office.
 // Sans ce branchement, ce que le restaurateur saisit n'apparaît nulle part :
 // le site affichait les avis écrits en dur dans le fichier de config.
 import { describe, it, expect } from "vitest";

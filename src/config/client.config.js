@@ -20,9 +20,9 @@ const config = {
   nom: "Le Petit Marais",
   logo: null, // null = on affiche le nom en texte. Sinon: "/logo.png"
 
-  // --- Menu piloté par CometStudio (via Supabase) ----------
+  // --- Menu piloté par le back-office (via Supabase) ----------
   //  Le menu est chargé en direct depuis la base, pour ce restaurant.
-  //  Modifié dans CometStudio -> le site se met à jour.
+  //  Modifié dans le back-office -> le site se met à jour.
   restaurantId: "petit-marais",
 
   // --- Thème : couleurs & polices --------------------------

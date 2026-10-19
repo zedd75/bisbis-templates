@@ -18,7 +18,7 @@ const config = {
   template: "prestige",
   nom: "Le Doric",
 
-  // Menu piloté par CometStudio (via Supabase), pour ce restaurant.
+  // Menu piloté par le back-office (via Supabase), pour ce restaurant.
   restaurantId: "le-doric",
 
   theme: {
@@ -244,7 +244,7 @@ const config = {
       },
 
       // --- BLOC AVIS (page d'accueil) ---
-      // Seul le titre vit ici : les avis eux-mêmes viennent de CometStudio.
+      // Seul le titre vit ici : les avis eux-mêmes viennent du back-office.
       avis: { titre: "Ils en parlent" },
     },
 

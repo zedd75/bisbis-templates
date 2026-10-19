@@ -14,12 +14,12 @@ export default defineConfig(({ command, mode }) => {
     plugins: [react(), {
       name: 'isolation-recette',
       generateBundle() {
-        this.emitFile({ type: 'asset', fileName: 'comet-environnement.json', source: JSON.stringify({ url: config.url }) });
+        this.emitFile({ type: 'asset', fileName: 'environnement.json', source: JSON.stringify({ url: config.url }) });
       },
       configurePreviewServer(server) {
         let manifeste;
         try {
-          manifeste = JSON.parse(readFileSync(resolve(server.config.root, server.config.build.outDir, 'comet-environnement.json'), 'utf8'));
+          manifeste = JSON.parse(readFileSync(resolve(server.config.root, server.config.build.outDir, 'environnement.json'), 'utf8'));
         } catch {
           throw new Error('Build sans environnement identifie : reconstruisez la recette.');
         }

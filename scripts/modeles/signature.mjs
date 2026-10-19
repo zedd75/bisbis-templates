@@ -13,7 +13,7 @@ const config = {
   nom: "${d.nom}",
   logo: null,
 
-  // Relie ce site a CometStudio. SANS cette ligne, le restaurateur
+  // Relie ce site au back-office. SANS cette ligne, le restaurateur
   // modifierait dans le vide : ses changements ne remonteraient jamais.
   restaurantId: "${d.restaurantId}",
 
@@ -33,7 +33,7 @@ ${blocTheme(d)}
     image: "${placeholder(d, "Photo de la salle")}",
   },
 
-  // Galerie de repli. Les vraies photos viennent de CometStudio.
+  // Galerie de repli. Les vraies photos viennent du back-office.
   galerie: {
     titre: "En images",
     images: [
@@ -46,7 +46,7 @@ ${blocTheme(d)}
     ],
   },
 
-  // Carte de repli. La vraie carte vient de CometStudio.
+  // Carte de repli. La vraie carte vient du back-office.
   menus: {
     titre: "Cartes & menus",
     formules: {
@@ -71,7 +71,7 @@ ${blocTheme(d)}
     ],
   },
 
-  // Avis de repli. Les vrais avis viennent de CometStudio.
+  // Avis de repli. Les vrais avis viennent du back-office.
   // A remplir avec de VRAIS avis Google recopies : inventer un avis
   // tombe sous l'article L.132-2 du code de la consommation.
   avis: {

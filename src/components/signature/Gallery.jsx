@@ -1,7 +1,7 @@
 // Galerie photos (template Signature) : grille d'images avec zoom léger au
 // survol + agrandissement au clic (lightbox).
 // Deux sources possibles :
-//   - config.galerieSections (piloté depuis CometStudio) : un titre + une
+//   - config.galerieSections (piloté depuis le back-office) : un titre + une
 //     grille par section, et un texte positionné possible sur chaque photo ;
 //   - sinon config.galerie.images : la liste statique d'origine (repli).
 import { useState } from "react";

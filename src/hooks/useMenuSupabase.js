@@ -1,5 +1,5 @@
 // Charge le menu d'un restaurant depuis Supabase (la base pilotée par
-// CometStudio) et le reconstruit en onglets -> catégories -> plats.
+// le back-office) et le reconstruit en onglets -> catégories -> plats.
 // Si restaurantId est absent ou la requête échoue, renvoie onglets:null
 // (le site garde alors son menu statique / menuSheet).
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import slugify from "../utils/slugify.js";
 import { lireCollectionSupabase } from "../lib/lectureSupabase.js";
 
 // Lignes plates (déjà triées par "ordre") -> onglets imbriqués.
-// "notes" = mentions saisies dans CometStudio, indexées par NOM de menu
+// "notes" = mentions saisies dans le back-office, indexées par NOM de menu
 // (colonne restaurants.notes_onglets). Sans mention, la clé "note" reste
 // absente : la note déclarée dans la config prend alors le relais
 // (voir reporterNotes dans utils/menuSheet.js).

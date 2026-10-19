@@ -1,4 +1,4 @@
-// Applique les infos pratiques pilotées depuis CometStudio à la config.
+// Applique les infos pratiques pilotées depuis le back-office à la config.
 //
 // Deux points à connaître :
 //

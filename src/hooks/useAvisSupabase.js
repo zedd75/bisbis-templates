@@ -1,5 +1,5 @@
 // Charge les avis d'un restaurant depuis Supabase (la base pilotée par
-// CometStudio). Si restaurantId est absent ou la requête échoue, renvoie
+// le back-office). Si restaurantId est absent ou la requête échoue, renvoie
 // avis:null et le site garde ceux écrits dans sa config.
 //
 // Les avis sont destinés à recevoir de VRAIS avis clients, recopiés par le

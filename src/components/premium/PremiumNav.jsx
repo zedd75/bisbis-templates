@@ -47,7 +47,7 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
 
   // Une capacité ABSENTE de la config vaut active : les configurations
   // écrites avant les interrupteurs ne doivent pas perdre leur navigation.
-  // Seul un `false` explicite masque — et c'est ce que CometStudio écrit.
+  // Seul un `false` explicite masque — et c'est ce que le back-office écrit.
   //
   // Sans ce filtre, la barre affichait la galerie, la bascule de langue et
   // le bouton Réserver même quand l'offre du restaurant ne les comprend pas.

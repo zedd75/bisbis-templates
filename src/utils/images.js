@@ -1,4 +1,4 @@
-// Applique les images pilotées depuis CometStudio à la config du site.
+// Applique les images pilotées depuis le back-office à la config du site.
 // Chaque template range ses images différemment : ce fichier sait où poser
 // chaque emplacement. Une valeur vide ou absente laisse l'image d'origine.
 export function appliquerImages(config, images) {

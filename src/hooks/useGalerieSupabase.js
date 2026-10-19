@@ -1,4 +1,4 @@
-// Charge depuis Supabase tout ce que CometStudio pilote pour ce restaurant :
+// Charge depuis Supabase tout ce que le back-office pilote pour ce restaurant :
 // la galerie (regroupée en sections), les images du site, et les
 // FONCTIONNALITÉS ACTIVÉES (restaurants.site_sections -> "capacites" ici,
 // pour ne pas confondre avec les sections de galerie). Regroupe les photos

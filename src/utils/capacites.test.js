@@ -1,4 +1,4 @@
-// Tests de la fusion des fonctionnalités pilotées depuis CometStudio
+// Tests de la fusion des fonctionnalités pilotées depuis le back-office
 // (restaurants.site_sections) dans config.sections.
 import { describe, it, expect } from "vitest";
 import { appliquerCapacites, capaciteActive } from "./capacites.js";

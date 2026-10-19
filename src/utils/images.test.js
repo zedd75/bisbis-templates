@@ -1,4 +1,4 @@
-// Tests de l'application des images pilotées depuis CometStudio.
+// Tests de l'application des images pilotées depuis le back-office.
 import { describe, it, expect } from "vitest";
 import { appliquerImages } from "./images.js";
 

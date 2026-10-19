@@ -16,7 +16,7 @@ export function configurationSupabase({ command, mode, vercelEnv, env = {} } = {
   }
   // Vitest et les recettes interceptees n'ont besoin d'aucune vraie base.
   if (mode === "test" && !vercelEnv) {
-    return { url: "https://comet-tests.invalid", key: "sb_publishable_tests_fictifs" };
+    return { url: "https://vitrines-tests.invalid", key: "sb_publishable_tests_fictifs" };
   }
   // Un Preview Vercel utilise aussi "vite build" : MODE seul ne suffit pas.
   const production = vercelEnv

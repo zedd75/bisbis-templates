@@ -1,5 +1,5 @@
 // PAGE GALERIE : sections (titre + grille de photos) ou repli plat.
-// Données : config.galerieSections (Supabase/CometStudio) = liste de
+// Données : config.galerieSections (Supabase/back-office) = liste de
 // { id, nom, photos:[{url, texte, position}] }. Repli : config.images.galerie
 // (liste d'URL statiques). Chaque photo garde son texte positionné + lightbox.
 import { useState } from "react";

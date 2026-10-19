@@ -26,7 +26,7 @@ const config = {
   template: "prestige",
   nom: "${d.nom}",
 
-  // Relie ce site a CometStudio. SANS cette ligne, le restaurateur
+  // Relie ce site au back-office. SANS cette ligne, le restaurateur
   // modifierait dans le vide : ses changements ne remonteraient jamais.
   restaurantId: "${d.restaurantId}",
 
@@ -57,7 +57,7 @@ const config = {
     policeTexte: "'Lato', sans-serif",
   },
 
-  // Images de repli. Les vraies viennent de CometStudio.
+  // Images de repli. Les vraies viennent du back-office.
   images: {
     hero: "${img("Photo d'accueil", "1920x1080")}",
     story1: "${img("Salle", "900x1100")}",

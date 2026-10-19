@@ -1,5 +1,5 @@
 // Avis clients (template Signature) : cartes avec note en étoiles.
-// Les avis viennent de CometStudio (table Supabase "avis") ; à défaut, de la
+// Les avis viennent du back-office (table Supabase "avis") ; à défaut, de la
 // config. Le restaurateur y recopie ses vrais avis Google.
 import Reveal from "../shared/Reveal.jsx";
 

@@ -26,7 +26,7 @@ export function entete(d, offre) {
 //  Genere par : npm run nouveau-client
 //
 //  A PERSONNALISER : photos, textes, horaires.
-//  La CARTE et les INFOS se pilotent depuis CometStudio : ce fichier
+//  La CARTE et les INFOS se pilotent depuis le back-office : ce fichier
 //  ne sert que de repli si la base est injoignable.
 // ============================================================`;
 }

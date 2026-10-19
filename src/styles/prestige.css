@@ -481,7 +481,7 @@
   color: rgba(244, 237, 225, 0.85); /* repli */
   color: rgb(from var(--creme) r g b / 0.85);
 }
-/* Horaires jour par jour, pilotés depuis CometStudio. Deux colonnes :
+/* Horaires jour par jour, pilotés depuis le back-office. Deux colonnes :
    le jour à gauche, les créneaux à droite, comme sur une ardoise. */
 .pinfos__horaires {
   list-style: none;

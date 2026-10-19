@@ -71,7 +71,7 @@ const PAGE_LEGALE =
 
 export default function App() {
   // Menu piloté à distance. Priorité :
-  //   1) Supabase (via config.restaurantId) — mis à jour par CometStudio
+  //   1) Supabase (via config.restaurantId) — mis à jour par le back-office
   //   2) sinon un CSV (config.menuSheet)
   //   3) sinon le menu statique de la config
   const { onglets: ongletsSupabase, traductions } = useMenuSupabase(config.restaurantId);

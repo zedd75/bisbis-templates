@@ -19,7 +19,7 @@ const config = {
   nom: "Casa Palma",
   logo: null,
 
-  // Menu piloté par CometStudio (via Supabase), pour ce restaurant.
+  // Menu piloté par le back-office (via Supabase), pour ce restaurant.
   restaurantId: "casa-palma",
 
   // --- Thème (terracotta / ivoire) ---------------------------

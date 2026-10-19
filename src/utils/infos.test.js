@@ -1,4 +1,4 @@
-// Tests des infos pratiques pilotées depuis CometStudio.
+// Tests des infos pratiques pilotées depuis le back-office.
 // Sans ce branchement, un restaurateur modifiait ses horaires et son
 // téléphone dans le back-office sans que son site ne change : c'est
 // l'information la plus souvent mise à jour d'un site de restaurant.
@@ -48,7 +48,7 @@ describe("appliquerInfos : remplacement", () => {
     expect(out.infos.email).toBe("bonjour@resto.fr");
   });
 
-  // CHANGEMENT DE REGLE ASSUME (audit A06). Ces trois tests decrivaient
+  // CHANGEMENT DE REGLE ASSUME. Ces trois tests decrivaient
   // l'ancien comportement : un champ vide en base rendait la main a la
   // config, donc a la valeur de demonstration. Un restaurateur qui effacait
   // son email le voyait reapparaitre, et de vrais clients ecrivaient a une
