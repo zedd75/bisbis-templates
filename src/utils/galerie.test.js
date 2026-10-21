@@ -33,7 +33,7 @@ describe("appliquerGalerie", () => {
   it("renvoie la config inchangée si aucune section", () => {
     const config = { template: "prestige", images: {} };
     expect(appliquerGalerie(config, null)).toBe(config);
-    expect(appliquerGalerie(config, [])).toBe(config);
+    expect(appliquerGalerie(config, []).galerieSections).toEqual([]);
   });
 
   it("ne mute pas la config d'origine (immutabilité)", () => {

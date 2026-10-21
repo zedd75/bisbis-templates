@@ -2,8 +2,11 @@
 // sous-titre en italique, deux boutons. L'entrée est animée en CSS
 // (classe phero__content--enter).
 import LienInterne from "../shared/LienInterne.jsx";
+import { lienReservation } from "../../utils/reservation.js";
+import { capaciteActive } from "../../utils/capacites.js";
 
 export default function PremiumHero({ config, t }) {
+  const reservationUrl = lienReservation(config);
   return (
     <section
       id="top"
@@ -24,17 +27,17 @@ export default function PremiumHero({ config, t }) {
         <p className="phero__subtitle">{t.hero.sousTitre}</p>
 
         <div className="phero__actions">
-          <a
-            href={config.reservationUrl}
+          {reservationUrl && <a
+            href={reservationUrl}
             target="_blank"
             rel="noreferrer"
             className="pbtn pbtn--gold"
           >
             {t.hero.cta1}
-          </a>
-          <LienInterne to="/carte" className="pbtn pbtn--outline">
+          </a>}
+          {capaciteActive(config, "menu") && <LienInterne to="/carte" className="pbtn pbtn--outline">
             {t.hero.cta2}
-          </LienInterne>
+          </LienInterne>}
         </div>
       </div>
     </section>

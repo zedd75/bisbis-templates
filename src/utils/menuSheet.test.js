@@ -98,7 +98,7 @@ describe("appliquerMenu (application selon le template)", () => {
 
   it("renvoie la config inchangée si aucun onglet", () => {
     const config = { template: "prestige", contenu: {} };
-    expect(appliquerMenu(config, [])).toBe(config);
+    expect(appliquerMenu(config, [])).toEqual(config);
     expect(appliquerMenu(config, null)).toBe(config);
   });
 

@@ -15,6 +15,8 @@
 //    déduit donc de l'adresse. Un champ de moins, une incohérence de moins.
 
 // Adresse -> URL d'intégration Google Maps.
+import { urlReservation } from "./reservation.js";
+
 export function carteDepuisAdresse(adresse) {
   if (!adresse || !adresse.trim()) return "";
   return `https://maps.google.com/maps?q=${encodeURIComponent(
@@ -55,7 +57,7 @@ export function appliquerInfos(config, infos) {
   // Prestige lit le lien de réservation à la RACINE de la config
   // (PremiumNav, PremiumHero, PremiumCtaBand). Le poser uniquement dans
   // "infos" l'aurait laissé figé alors que le module propose de l'éditer.
-  const reservationUrl = garde(infos.reservation_url, config.reservationUrl);
+  const reservationUrl = urlReservation(garde(infos.reservation_url, config.reservationUrl));
 
   return {
     ...config,

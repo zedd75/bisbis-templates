@@ -113,6 +113,7 @@ const config = {
       // --- PAGE CARTES & MENUS ---
       carte: {
         label: "À table",
+        carteVide: "La carte sera bientôt disponible.",
         titre: "Cartes & menus",
         texte:
           "Mezzés à partager, grillades, douceurs et belle carte de boissons : une cuisine généreuse aux accents méditerranéens, du matin au soir.",
@@ -275,6 +276,7 @@ const config = {
 
       carte: {
         label: "At the table",
+        carteVide: "The menu will be available soon.",
         titre: "Menus",
         texte:
           "Mezze to share, grills, sweet treats and a fine drinks list: generous Mediterranean-inspired cuisine, from morning to night.",

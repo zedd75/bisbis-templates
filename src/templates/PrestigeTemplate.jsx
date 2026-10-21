@@ -3,7 +3,8 @@
 // (React Router). La nav et le footer sont partagés par toutes
 // les pages.
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { capaciteActive } from "../utils/capacites.js";
 import PremiumNav from "../components/premium/PremiumNav.jsx";
 import PremiumFooter from "../components/premium/PremiumFooter.jsx";
 import ScrollToTop from "../components/premium/ScrollToTop.jsx";
@@ -12,6 +13,11 @@ import CartePage from "../pages/premium/CartePage.jsx";
 import HistoirePage from "../pages/premium/HistoirePage.jsx";
 import GaleriePage from "../pages/premium/GaleriePage.jsx";
 import "../styles/prestige.css";
+
+function PageActive({ config, capacite, children }) {
+  const { search } = useLocation();
+  return capaciteActive(config, capacite) ? children : <Navigate to={{ pathname: "/", search }} replace />;
+}
 
 export default function PrestigeTemplate({ config, mode, onChangerTheme }) {
   const [lang, setLang] = useState("fr");
@@ -32,14 +38,14 @@ export default function PrestigeTemplate({ config, mode, onChangerTheme }) {
         <main>
           <Routes>
             <Route path="/" element={<AccueilPage config={config} t={t} />} />
-            <Route path="/carte" element={<CartePage config={config} t={t} />} />
+            <Route path="/carte" element={<PageActive config={config} capacite="menu"><CartePage config={config} t={t} /></PageActive>} />
             <Route
               path="/histoire"
-              element={<HistoirePage config={config} t={t} />}
+              element={<PageActive config={config} capacite="apropos"><HistoirePage config={config} t={t} /></PageActive>}
             />
             <Route
               path="/galerie"
-              element={<GaleriePage config={config} t={t} />}
+              element={<PageActive config={config} capacite="galerie"><GaleriePage config={config} t={t} /></PageActive>}
             />
           </Routes>
         </main>

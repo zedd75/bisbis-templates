@@ -6,6 +6,8 @@ import Seo from "./components/shared/Seo.jsx";
 import useMenuSheet from "./hooks/useMenuSheet.js";
 import useMenuSupabase from "./hooks/useMenuSupabase.js";
 import { appliquerMenu } from "./utils/menuSheet.js";
+import useFormulesSupabase from "./hooks/useFormulesSupabase.js";
+import { appliquerFormules } from "./utils/formules.js";
 import useGalerieSupabase from "./hooks/useGalerieSupabase.js";
 import useAvisSupabase from "./hooks/useAvisSupabase.js";
 import useInfosSupabase from "./hooks/useInfosSupabase.js";
@@ -76,6 +78,7 @@ export default function App() {
   //   3) sinon le menu statique de la config
   const { onglets: ongletsSupabase, traductions } = useMenuSupabase(config.restaurantId);
   const { onglets: ongletsSheet } = useMenuSheet(config.menuSheet);
+  const formules = useFormulesSupabase(config.restaurantId);
   const { sections: galerieSections, images: imagesSite, capacites } = useGalerieSupabase(
     config.restaurantId
   );
@@ -85,7 +88,7 @@ export default function App() {
   const configAvecMenu = onglets
     ? appliquerMenu(config, onglets, traductions)
     : config;
-  const configAvecGalerie = appliquerGalerie(configAvecMenu, galerieSections);
+  const configAvecGalerie = appliquerGalerie(appliquerFormules(configAvecMenu, formules), galerieSections);
   const configAvecAvis = appliquerAvis(configAvecGalerie, avis);
   const configAvecImages = appliquerImages(configAvecAvis, imagesSite);
   const configAvecInfos = appliquerInfos(configAvecImages, infos);

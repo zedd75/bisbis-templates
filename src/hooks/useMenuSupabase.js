@@ -83,7 +83,7 @@ export default function useMenuSupabase(restaurantId) {
     )
       .then(({ lignes: rows, associe: extra }) => {
         if (annule) return;
-        setOnglets(rows.length ? ongletsDepuisRows(rows, extra.notes) : null);
+        setOnglets(ongletsDepuisRows(rows, extra.notes));
         setTraductions(extra.traductions);
       })
       .catch((e) => {

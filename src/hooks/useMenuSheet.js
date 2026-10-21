@@ -32,7 +32,7 @@ export default function useMenuSheet(url) {
         const onglets = construireOnglets(parseCsv(texte));
         setEtat({
           statut: onglets.length ? "pret" : "vide",
-          onglets: onglets.length ? onglets : null,
+          onglets,
         });
       })
       .catch((e) => {

@@ -11,6 +11,7 @@ import LienInterne from "../shared/LienInterne.jsx";
 import { capaciteActive } from "../../utils/capacites.js";
 import slugify from "../../utils/slugify.js";
 import BasculeTheme from "../shared/BasculeTheme.jsx";
+import { lienReservation } from "../../utils/reservation.js";
 
 export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTheme }) {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +39,7 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
   //  - puis les autres menus (Brunch...) en une entrée chacun
   const [principal, ...autresMenus] = t.carte.onglets;
   const entreesCarte = [
-    ...principal.categories.map((cat) => ({
+    ...(principal?.categories || []).map((cat) => ({
       nom: cat.nom,
       ancre: slugify(cat.nom),
     })),
@@ -55,7 +56,8 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
   const actif = (cle) => capaciteActive(config, cle);
   // Un lien de réservation vide donnerait `href=""`, c'est-à-dire un lien
   // vers la page courante : un bouton qui ne fait rien.
-  const reservationVisible = actif("reservation") && !!config.reservationUrl;
+  const reservationUrl = lienReservation(config);
+  const reservationVisible = !!reservationUrl;
 
   return (
     <header className={`pnav ${solide ? "pnav--solid" : ""}`}>
@@ -127,7 +129,7 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
           )}
           {reservationVisible && (
             <a
-              href={config.reservationUrl}
+              href={reservationUrl}
               target="_blank"
               rel="noreferrer"
               className="pbtn pbtn--gold"
@@ -156,7 +158,7 @@ export default function PremiumNav({ config, t, lang, setLang, mode, onChangerTh
             <LienInterne to="/galerie">{t.nav.galerie}</LienInterne>
           )}
           {reservationVisible && (
-            <a href={config.reservationUrl} target="_blank" rel="noreferrer">
+            <a href={reservationUrl} target="_blank" rel="noreferrer">
               {t.nav.reserver}
             </a>
           )}

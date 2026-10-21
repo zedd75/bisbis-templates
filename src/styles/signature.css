@@ -289,3 +289,5 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+/* L'ancre doit rester sous la barre fixe, y compris après fermeture du menu. */
+.site .section[id] { scroll-margin-top: 100px; }

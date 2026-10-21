@@ -144,12 +144,12 @@ export function traduireOnglets(onglets, dico) {
 // "traductions" (facultatif) a la forme { en: { onglets, categories } } et ne
 // concerne que les templates multilingues (Prestige aujourd'hui).
 export function appliquerMenu(config, onglets, traductions) {
-  if (!onglets || onglets.length === 0) return config;
+  if (!onglets) return config;
 
   if (config.template === "essentiel") {
     // Une seule liste de catégories : on prend celles du 1er menu.
     // Ce template n'a pas d'onglets, donc pas de note à reporter.
-    return { ...config, menu: { ...config.menu, categories: onglets[0].categories } };
+    return { ...config, menu: { ...config.menu, categories: onglets[0]?.categories || [] } };
   }
 
   if (config.template === "signature") {

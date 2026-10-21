@@ -13,7 +13,7 @@ import slugify from "../../utils/slugify.js";
 export default function CartePage({ t }) {
   const { carte } = t;
   const location = useLocation();
-  const [actif, setActif] = useState(carte.onglets[0].id);
+  const [actif, setActif] = useState(carte.onglets[0]?.id);
   const ongletActif =
     carte.onglets.find((o) => o.id === actif) || carte.onglets[0];
 
@@ -49,7 +49,7 @@ export default function CartePage({ t }) {
       <PageHeading label={carte.label} titre={carte.titre} texte={carte.texte} />
 
       {/* --- Formules déjeuner --- */}
-      <Reveal>
+      {carte.formules?.items?.length > 0 && <Reveal>
         <div className="pformules">
           <h2 className="pformules__title">{carte.formules.titre}</h2>
           <p className="pformules__note">{carte.formules.note}</p>
@@ -63,7 +63,7 @@ export default function CartePage({ t }) {
             ))}
           </ul>
         </div>
-      </Reveal>
+      </Reveal>}
 
       {/* --- Onglets de menus --- */}
       <div className="pcarte__tabs">
@@ -78,11 +78,12 @@ export default function CartePage({ t }) {
         ))}
       </div>
 
-      {ongletActif.note && <p className="pcarte__note">{ongletActif.note}</p>}
+      {ongletActif?.note && <p className="pcarte__note">{ongletActif.note}</p>}
+      {!ongletActif && <p className="pcarte__note">{carte.carteVide || "La carte sera bientôt disponible."}</p>}
 
       {/* --- Catégories et plats du menu actif --- */}
       <div className="pcarte__menu">
-        {ongletActif.categories.map((cat) => (
+        {ongletActif?.categories.map((cat) => (
           <div key={cat.nom} id={slugify(cat.nom)} className="pcat">
             <h3 className="pcat__title">{cat.nom}</h3>
             <ul className="pcat__list">

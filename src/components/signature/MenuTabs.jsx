@@ -9,7 +9,7 @@ import Reveal from "../shared/Reveal.jsx";
 
 export default function MenuTabs({ config }) {
   const { menus } = config;
-  const [actif, setActif] = useState(menus.onglets[0].id);
+  const [actif, setActif] = useState(menus.onglets[0]?.id);
   const ongletActif =
     menus.onglets.find((o) => o.id === actif) || menus.onglets[0];
 
@@ -18,7 +18,7 @@ export default function MenuTabs({ config }) {
       <h2 className="section__title section__title--center">{menus.titre}</h2>
 
       {/* --- Formules (optionnel) --- */}
-      {menus.formules && (
+      {menus.formules?.items?.length > 0 && (
         <Reveal>
           <div className="sformules">
             <h3 className="sformules__title">{menus.formules.titre}</h3>
@@ -49,9 +49,10 @@ export default function MenuTabs({ config }) {
         ))}
       </div>
 
-      {ongletActif.note && <p className="smenu__note">{ongletActif.note}</p>}
+      {ongletActif?.note && <p className="smenu__note">{ongletActif.note}</p>}
 
-      <MenuCategories categories={ongletActif.categories} />
+      {ongletActif ? <MenuCategories categories={ongletActif.categories} />
+        : <p className="smenu__note">La carte sera bientôt disponible.</p>}
     </section>
   );
 }

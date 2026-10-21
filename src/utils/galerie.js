@@ -8,7 +8,7 @@
 const TEMPLATES_AVEC_GALERIE = ["prestige", "signature"];
 
 export function appliquerGalerie(config, sections) {
-  if (!sections || sections.length === 0) return config;
+  if (!sections) return config;
   if (!TEMPLATES_AVEC_GALERIE.includes(config.template)) return config;
   return { ...config, galerieSections: sections };
 }

@@ -10,6 +10,7 @@ export default function MenuSection({ config }) {
     <section id="menu" className="section menu">
       <h2 className="section__title section__title--center">{menu.titre}</h2>
       <MenuCategories categories={menu.categories} />
+      {menu.categories.length === 0 && <p>La carte sera bientôt disponible.</p>}
     </section>
   );
 }

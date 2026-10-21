@@ -51,7 +51,7 @@ export default function useGalerieSupabase(restaurantId) {
           }))
           .filter((s) => s.photos.length > 0);
         setDonnees({
-          sections: groupes.length ? groupes : null,
+          sections: groupes,
           images: (restos[0] && restos[0].images) || null,
           capacites: (restos[0] && restos[0].site_sections) || null,
         });
