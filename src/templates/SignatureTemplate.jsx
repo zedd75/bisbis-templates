@@ -3,6 +3,8 @@
 //   avis clients et animations d'apparition au défilement.
 // Réutilise les composants de l'Essentiel (Hero, About, Infos,
 // Footer) : seule la mise en scène change.
+import { useEffect } from "react";
+import { suivreAncreInitiale } from "../lib/ancreInitiale.js";
 import SignatureHeader from "../components/signature/SignatureHeader.jsx";
 import Hero from "../components/Hero.jsx";
 import About from "../components/About.jsx";
@@ -15,6 +17,10 @@ import Reveal from "../components/shared/Reveal.jsx";
 import "../styles/signature.css";
 
 export default function SignatureTemplate({ config, mode, onChangerTheme }) {
+  useEffect(() => suivreAncreInitiale({
+    fenetre: window, page: document, Observer: window.ResizeObserver,
+  }), []);
+
   return (
     <>
       <SignatureHeader config={config} mode={mode} onChangerTheme={onChangerTheme} />
