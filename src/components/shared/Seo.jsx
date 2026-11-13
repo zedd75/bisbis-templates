@@ -7,6 +7,7 @@
 //     horaires et téléphone directement dans les résultats.
 // Aucun template n'a besoin de s'en occuper : App.jsx le monte une fois.
 import { useEffect } from "react";
+import { prixNumerique } from "../../utils/prix.js";
 
 // Récupère les catégories de plats quel que soit le template.
 function trouverCategories(config) {
@@ -16,12 +17,6 @@ function trouverCategories(config) {
     config.contenu?.fr?.carte?.onglets?.[0]?.categories || // Prestige
     []
   );
-}
-
-// "7,50€" -> "7.50" (premier prix trouvé)
-function prixNumerique(prix) {
-  const m = (prix || "").match(/\d+(?:,\d+)?/);
-  return m ? m[0].replace(",", ".") : null;
 }
 
 // Crée ou met à jour une balise <meta>.
