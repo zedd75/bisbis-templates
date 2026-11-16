@@ -15,6 +15,8 @@ import { appliquerGalerie } from "./utils/galerie.js";
 import { appliquerAvis } from "./utils/avis.js";
 import { appliquerInfos } from "./utils/infos.js";
 import { appliquerImages } from "./utils/images.js";
+import useTextesSupabase from "./hooks/useTextesSupabase.js";
+import { appliquerTextes } from "./utils/textes.js";
 import { appliquerCapacites } from "./utils/capacites.js";
 import { themeActif } from "./utils/theme.js";
 import useTheme from "./hooks/useTheme.js";
@@ -84,6 +86,7 @@ export default function App() {
   );
   const { avis } = useAvisSupabase(config.restaurantId);
   const { infos } = useInfosSupabase(config.restaurantId);
+  const textes = useTextesSupabase(config.restaurantId);
   const onglets = ongletsSupabase || ongletsSheet;
   const configAvecMenu = onglets
     ? appliquerMenu(config, onglets, traductions)
@@ -91,7 +94,10 @@ export default function App() {
   const configAvecGalerie = appliquerGalerie(appliquerFormules(configAvecMenu, formules), galerieSections);
   const configAvecAvis = appliquerAvis(configAvecGalerie, avis);
   const configAvecImages = appliquerImages(configAvecAvis, imagesSite);
-  const configAvecInfos = appliquerInfos(configAvecImages, infos);
+  // Textes et réseaux sociaux saisis dans le back-office : un champ vide
+  // garde le texte écrit dans la config.
+  const configAvecTextes = appliquerTextes(configAvecImages, textes);
+  const configAvecInfos = appliquerInfos(configAvecTextes, infos);
   const configFinal = appliquerCapacites(configAvecInfos, capacites);
 
   const Template = TEMPLATES[configFinal.template] || EssentielTemplate;
