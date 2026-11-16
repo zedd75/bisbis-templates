@@ -4,37 +4,8 @@
 // (le site garde alors son menu statique / menuSheet).
 import { useEffect, useState } from "react";
 import { SUPABASE_URL, SUPABASE_KEY } from "../lib/supabase.js";
-import slugify from "../utils/slugify.js";
+import { ongletsDepuisRows } from "../utils/menuLignes.js";
 import { lireCollectionSupabase } from "../lib/lectureSupabase.js";
-
-// Lignes plates (déjà triées par "ordre") -> onglets imbriqués.
-// "notes" = mentions saisies dans le back-office, indexées par NOM de menu
-// (colonne restaurants.notes_onglets). Sans mention, la clé "note" reste
-// absente : la note déclarée dans la config prend alors le relais
-// (voir reporterNotes dans utils/menuSheet.js).
-function ongletsDepuisRows(rows, notes = {}) {
-  const menus = [];
-  const parMenu = new Map();
-  for (const l of rows) {
-    let menu = parMenu.get(l.menu);
-    if (!menu) {
-      menu = { id: slugify(l.menu), nom: l.menu, categories: [], _c: new Map() };
-      parMenu.set(l.menu, menu);
-      menus.push(menu);
-    }
-    let cat = menu._c.get(l.categorie);
-    if (!cat) {
-      cat = { nom: l.categorie, plats: [] };
-      menu._c.set(l.categorie, cat);
-      menu.categories.push(cat);
-    }
-    cat.plats.push({ nom: l.nom, desc: l.description || "", prix: l.prix || "" });
-  }
-  return menus.map(({ id, nom, categories }) => {
-    const note = notes[nom];
-    return note ? { id, nom, note, categories } : { id, nom, categories };
-  });
-}
 
 export default function useMenuSupabase(restaurantId) {
   const [onglets, setOnglets] = useState(null);

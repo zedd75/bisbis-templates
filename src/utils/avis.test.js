@@ -32,6 +32,20 @@ describe("appliquerAvis", () => {
     expect(appliquerAvis(config, undefined)).toBe(config);
   });
 
+  it("n'affiche pas un avis sans texte, saisie en cours dans le back-office", () => {
+    const base = [
+      { nom: "Léa", note: 5, texte: "Très bon" },
+      { nom: "", note: 5, texte: "" },
+      { nom: "Paul", note: 4, texte: "   " },
+    ];
+    expect(appliquerAvis(configDemo(), base).avis.items).toEqual([base[0]]);
+  });
+
+  it("garde ceux de la config quand aucun avis de la base n'a de texte", () => {
+    const config = configDemo();
+    expect(appliquerAvis(config, [{ nom: "", note: 5, texte: "" }])).toBe(config);
+  });
+
   it("ne touche a rien d'autre dans la config", () => {
     const config = { ...configDemo(), nom: "Casa Palma", sections: { avis: true } };
     const out = appliquerAvis(config, [{ nom: "X", note: 4, texte: "y" }]);
