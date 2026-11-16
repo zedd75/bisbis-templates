@@ -13,6 +13,9 @@
 //    un dictionnaire mal rempli pourrait remplacer une image, une couleur ou
 //    l'identifiant du restaurant. Et un emplacement que ce site n'a pas
 //    (un troisième bloc d'histoire, une langue absente) n'est jamais créé.
+//    Seule exception, voulue : les deux blocs et le chef de la page
+//    « Notre histoire ». Un site tout juste généré n'en a pas ; ils sont
+//    préparés, vides, dès qu'un de leurs textes est saisi (voir plus bas).
 //
 // 2. UN TEXTE VIDE GARDE LE TEXTE D'ORIGINE.
 //    Un site sans titre d'accueil serait cassé. Vide ou absent, c'est le
@@ -49,6 +52,12 @@ const EMPLACEMENTS = {
 
 const RESEAUX = ["instagram", "facebook"];
 
+// Emplacements de texte d'un modèle (liste vide pour un modèle inconnu).
+// Exporté pour les tests de livraison : un site généré doit tous les accepter.
+export function emplacementsTextes(template) {
+  return EMPLACEMENTS[template] || [];
+}
+
 const estObjet = (v) => !!v && typeof v === "object";
 
 // Remplace le texte rangé à `chemin`, sans modifier l'objet d'origine.
@@ -67,9 +76,45 @@ function poser(objet, chemin, valeur) {
   return { ...objet, [cle]: suite };
 }
 
+const saisi = (textes, cle) =>
+  Object.hasOwn(textes, cle) && typeof textes[cle] === "string" && textes[cle].trim() !== "";
+
+// PAGE « NOTRE HISTOIRE » D'UN SITE GÉNÉRÉ.
+// Le générateur livre `blocs: []` et `chef: null`. Sans préparation, un
+// texte de bloc saisi dans le back-office n'aurait nulle part où aller, et
+// le restaurateur taperait dans le vide. On prépare donc, VIDES, les blocs
+// et le chef dont au moins un texte est saisi pour cette langue. Un bloc
+// resté vide ne s'affiche pas (utils/histoire.js). Rien n'est préparé si la
+// page elle-même n'existe pas dans ce site.
+const BLOC_VIDE = { titre: "", texte: "" };
+const CHEF_VIDE = { nom: "", role: "", texte: "" };
+
+function preparerHistoire(cible, emplacements, textes, suffixe) {
+  const histoire = cible?.histoire;
+  if (!estObjet(histoire) || Array.isArray(histoire)) return cible;
+  const cles = emplacements.filter((e) => saisi(textes, e + suffixe));
+
+  let suite = histoire;
+  const indices = cles
+    .map((e) => /^histoire\.blocs\.(\d+)\./.exec(e))
+    .filter(Boolean)
+    .map((m) => Number(m[1]));
+  if (indices.length) {
+    const blocs = Array.isArray(histoire.blocs) ? histoire.blocs : [];
+    const taille = Math.max(blocs.length, Math.max(...indices) + 1);
+    const complets = Array.from({ length: taille }, (_, i) =>
+      estObjet(blocs[i]) ? { ...BLOC_VIDE, ...blocs[i] } : { ...BLOC_VIDE });
+    suite = { ...suite, blocs: complets };
+  }
+  if (cles.some((e) => e.startsWith("histoire.chef."))) {
+    suite = { ...suite, chef: { ...CHEF_VIDE, ...(estObjet(histoire.chef) ? histoire.chef : {}) } };
+  }
+  return suite === histoire ? cible : { ...cible, histoire: suite };
+}
+
 // Pose dans `cible` les textes saisis pour une langue ("" = langue de saisie).
 function poserTextes(cible, emplacements, textes, suffixe) {
-  let sortie = cible;
+  let sortie = preparerHistoire(cible, emplacements, textes, suffixe);
   for (const emplacement of emplacements) {
     const cle = emplacement + suffixe;
     if (!Object.hasOwn(textes, cle)) continue;

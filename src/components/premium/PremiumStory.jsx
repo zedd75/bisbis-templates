@@ -11,7 +11,8 @@ export default function PremiumStory({ blocs, images }) {
         const inverse = i % 2 === 1; // alterne le sens une ligne sur deux
         return (
           <div
-            key={bloc.titre}
+            // L'indice complète la clé : deux blocs peuvent n'avoir aucun titre.
+            key={`${i}-${bloc.titre}`}
             className={`pstory__row ${inverse ? "pstory__row--reverse" : ""}`}
           >
             <div className="pstory__media">
